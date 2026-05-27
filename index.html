@@ -3,552 +3,434 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Sempre Domenica — B&B Cycling & Gastronomy</title>
+<title>Sempre Domenica</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--green:#1a3a2a;--green-mid:#2c5c3f;--green-light:#3d7a54;--terra:#8b3a2a;--terra-mid:#a84a36;--terra-light:#c96048;--cream:#f5f0e8;--cream-dark:#ede6d6;--text-dark:#1a1a18;--text-mid:#3d3d38;--text-light:#7a7a70;--white:#fff}
+:root{--green:#1a3a2a;--green-mid:#2c5c3f;--green-light:#3d7a54;--terra:#8b3a2a;--terra-mid:#a84a36;--cream:#f5f0e8;--cream-dark:#ede6d6;--text-dark:#1a1a18;--text-mid:#3d3d38;--text-light:#7a7a70;--white:#fff}
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',system-ui,sans-serif;background:var(--cream);color:var(--text-dark);overflow-x:hidden}
 h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 5%;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 5%;display:flex;align-items:center;justify-content:space-between;transition:all .4s;gap:1rem}
 nav.scrolled{background:var(--green);box-shadow:0 2px 20px rgba(0,0,0,.3)}
-.nav-logo{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;color:#fff;letter-spacing:.04em}
+.nav-logo{font-family:'Playfair Display',Georgia,serif;font-size:1.3rem;color:#fff;letter-spacing:.04em;white-space:nowrap;flex-shrink:0}
 .nav-logo em{font-style:italic;color:#c8d8a8}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
-.nav-links a:hover{color:var(--terra-light)}
-.nav-book-btn{background:var(--terra);color:#fff;border:none;padding:.55rem 1.4rem;border-radius:2px;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .2s;font-family:'DM Sans',sans-serif}
+.nav-links{display:flex;gap:1.4rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:#c96048}
+.nav-right{display:flex;align-items:center;gap:.8rem;flex-shrink:0}
+.nav-book-btn{background:var(--terra);color:#fff;border:none;padding:.5rem 1.1rem;border-radius:2px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .2s;font-family:'DM Sans',sans-serif;white-space:nowrap}
 .nav-book-btn:hover{background:var(--terra-mid)}
-.hero{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--green)}
+.lang-switcher{display:flex;gap:4px;align-items:center}
+.lang-btn{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);padding:.28rem .55rem;border-radius:2px;font-size:.7rem;letter-spacing:.06em;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;text-transform:uppercase}
+.lang-btn:hover{background:rgba(255,255,255,.22);color:#fff}
+.lang-btn.active{background:rgba(255,255,255,.25);color:#fff;border-color:rgba(255,255,255,.5)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.3rem;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;inset:0;top:60px;background:var(--green);z-index:99;padding:2rem 5%;flex-direction:column;gap:1.5rem;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:rgba(255,255,255,.85);text-decoration:none;font-size:1.1rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:1rem}
+.mobile-menu .mobile-lang{display:flex;gap:.6rem;margin-top:.5rem}
+.mobile-menu .mobile-book{background:var(--terra);color:#fff;border:none;padding:.9rem 1.5rem;border-radius:2px;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:.5rem}
+.hero{height:100vh;min-height:600px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--green)}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,#0d2218 0%,#1a3a2a 40%,#2c3a1a 100%)}
 .hero-pattern{position:absolute;inset:0;opacity:.06;background-image:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);background-size:20px 20px}
-.hero-content{position:relative;z-index:2;text-align:center;padding:0 5%}
-.hero-eyebrow{font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:#c8d8a8;margin-bottom:1.2rem}
-.hero h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(3rem,8vw,6.5rem);color:#fff;line-height:1.05;margin-bottom:.5rem}
+.hero-content{position:relative;z-index:2;text-align:center;padding:0 6%}
+.hero-eyebrow{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:#c8d8a8;margin-bottom:1rem}
+.hero h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.8rem,10vw,6.5rem);color:#fff;line-height:1.05;margin-bottom:.5rem}
 .hero h1 em{font-style:italic;color:#c8d8a8}
-.hero-sub{font-size:1.05rem;color:rgba(255,255,255,.65);max-width:520px;margin:.8rem auto 2.2rem;line-height:1.7;font-weight:300}
-.hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.btn-primary{background:var(--terra);color:#fff;padding:.8rem 2rem;border:none;border-radius:2px;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.hero-welcome{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:2px;padding:.5rem 1rem;font-size:.8rem;color:rgba(255,255,255,.8);margin-bottom:1.5rem;letter-spacing:.03em}
+.hero-sub{font-size:clamp(.9rem,2.5vw,1.05rem);color:rgba(255,255,255,.65);max-width:520px;margin:.8rem auto 1.5rem;line-height:1.7;font-weight:300}
+.hero-ctas{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--terra);color:#fff;padding:.8rem 1.8rem;border:none;border-radius:2px;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
 .btn-primary:hover{background:var(--terra-mid);transform:translateY(-1px)}
-.btn-outline{background:transparent;color:#fff;padding:.8rem 2rem;border:1.5px solid rgba(255,255,255,.4);border-radius:2px;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-outline{background:transparent;color:#fff;padding:.8rem 1.8rem;border:1.5px solid rgba(255,255,255,.4);border-radius:2px;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
 .btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.08)}
-.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.4);font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:.5rem;z-index:2}
-.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.4))}
-section{padding:6rem 5%}
-.section-label{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--terra);margin-bottom:.8rem}
-.section-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,3rem);color:var(--green);line-height:1.15;margin-bottom:1.2rem}
+.hero-scroll{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.4);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:.4rem;z-index:2}
+.scroll-line{width:1px;height:32px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.4))}
+.welcome-strip{background:var(--terra);padding:1.4rem 5%;text-align:center;color:#fff}
+.welcome-strip p{font-size:.95rem;font-weight:300;line-height:1.7;max-width:700px;margin:0 auto}
+section{padding:5rem 5%}
+.section-label{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--terra);margin-bottom:.8rem}
+.section-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,4vw,3rem);color:var(--green);line-height:1.15;margin-bottom:1.2rem}
 .section-title em{font-style:italic;color:var(--terra)}
-.about{background:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-.about-text p{font-size:1.02rem;line-height:1.85;color:var(--text-mid);font-weight:300;margin-bottom:1rem}
-.about-visual{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.about-card{background:var(--green);border-radius:4px;padding:1.8rem 1.4rem;color:#fff}
-.about-card .icon{font-size:1.8rem;margin-bottom:.8rem}
-.about-card h4{font-family:'Playfair Display',Georgia,serif;font-size:1.05rem;margin-bottom:.4rem;color:#c8d8a8}
-.about-card p{font-size:.83rem;color:rgba(255,255,255,.65);line-height:1.6;font-weight:300}
+.about{background:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-text p{font-size:1rem;line-height:1.85;color:var(--text-mid);font-weight:300;margin-bottom:1rem}
+.about-visual{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.about-card{background:var(--green);border-radius:4px;padding:1.5rem 1.2rem;color:#fff}
+.about-card .icon{font-size:1.6rem;margin-bottom:.6rem}
+.about-card h4{font-family:'Playfair Display',Georgia,serif;font-size:1rem;margin-bottom:.3rem;color:#c8d8a8}
+.about-card p{font-size:.8rem;color:rgba(255,255,255,.65);line-height:1.6;font-weight:300}
 .cycling{background:var(--green);color:#fff}
 .cycling .section-label{color:#c8d8a8}
 .cycling .section-title{color:#fff}
 .cycling .section-title em{color:#c8d8a8}
-.cycling-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.cycling-feature{border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:2rem 1.6rem;transition:all .3s}
+.cycling-note{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:4px;padding:1rem 1.4rem;margin-bottom:2.5rem;font-size:.88rem;color:rgba(255,255,255,.75);line-height:1.65;display:flex;gap:.8rem;align-items:flex-start}
+.cycling-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.cycling-feature{border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:1.6rem 1.4rem;transition:all .3s}
 .cycling-feature:hover{border-color:rgba(200,216,168,.4);background:rgba(255,255,255,.04)}
-.cycling-feature .feat-icon{width:44px;height:44px;background:rgba(200,216,168,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;font-size:1.3rem}
-.cycling-feature h3{font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;margin-bottom:.6rem;color:#c8d8a8}
-.cycling-feature p{font-size:.87rem;color:rgba(255,255,255,.6);line-height:1.7;font-weight:300}
+.cycling-feature .feat-icon{width:40px;height:40px;background:rgba(200,216,168,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.2rem}
+.cycling-feature h3{font-family:'Playfair Display',Georgia,serif;font-size:1rem;margin-bottom:.5rem;color:#c8d8a8}
+.cycling-feature p{font-size:.83rem;color:rgba(255,255,255,.6);line-height:1.65;font-weight:300}
 .rooms{background:var(--cream-dark)}
-.rooms-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.8rem;margin-top:3rem}
+.rooms-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3rem}
 .room-card{background:var(--white);border-radius:4px;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s}
 .room-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(26,58,42,.15)}
-.room-img{height:220px;display:flex;align-items:flex-end;padding:1.2rem;position:relative;overflow:hidden}
+.room-img{height:200px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:1rem}
 .room-img-bg{position:absolute;inset:0;transition:transform .4s}
 .room-card:hover .room-img-bg{transform:scale(1.04)}
 .room-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,25,15,.7) 0%,transparent 60%);z-index:1}
-.room-badge{position:relative;z-index:2;background:var(--terra);color:#fff;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .8rem;border-radius:2px}
-.room-info{padding:1.4rem 1.6rem 1.8rem}
-.room-info h3{font-family:'Playfair Display',Georgia,serif;font-size:1.25rem;color:var(--green);margin-bottom:.4rem}
-.room-info p{font-size:.87rem;color:var(--text-light);line-height:1.65;margin-bottom:1.1rem;font-weight:300}
+.room-badge{position:relative;z-index:2;background:var(--terra);color:#fff;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .7rem;border-radius:2px}
+.room-info{padding:1.2rem 1.4rem 1.6rem}
+.room-info h3{font-family:'Playfair Display',Georgia,serif;font-size:1.2rem;color:var(--green);margin-bottom:.3rem}
+.room-info p{font-size:.85rem;color:var(--text-light);line-height:1.65;margin-bottom:1rem;font-weight:300}
 .room-footer{display:flex;align-items:center;justify-content:space-between}
-.room-price{font-size:1.1rem;font-weight:500;color:var(--terra)}
-.room-price span{font-size:.78rem;color:var(--text-light);font-weight:400}
-.room-book{background:transparent;border:1.5px solid var(--green);color:var(--green);padding:.45rem 1rem;border-radius:2px;font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.room-price{font-size:1.05rem;font-weight:500;color:var(--terra)}
+.room-price span{font-size:.76rem;color:var(--text-light);font-weight:400}
+.room-book{background:transparent;border:1.5px solid var(--green);color:var(--green);padding:.42rem .9rem;border-radius:2px;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
 .room-book:hover{background:var(--green);color:#fff}
-.dining{background:var(--terra);color:#fff;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.dining{background:var(--terra);color:#fff;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
 .dining .section-label{color:rgba(255,255,255,.6)}
 .dining .section-title{color:#fff}
-.dining-text p{font-size:1rem;line-height:1.85;color:rgba(255,255,255,.75);font-weight:300;margin-bottom:1rem}
-.menu-nights{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem}
-.menu-night{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:1.2rem 1.6rem;display:flex;justify-content:space-between;align-items:center}
-.menu-night-left h4{font-family:'Playfair Display',Georgia,serif;font-size:1rem;margin-bottom:.2rem}
-.menu-night-left p{font-size:.82rem;color:rgba(255,255,255,.6);font-weight:300}
-.menu-night-price{font-size:1.6rem;font-weight:600}
-.menu-night-price span{font-size:.75rem;font-weight:300;color:rgba(255,255,255,.6);display:block;text-align:right}
-.dining-courses{display:flex;flex-direction:column;gap:.8rem}
-.course-item{display:flex;gap:1rem;align-items:flex-start;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.12)}
+.dining-text p{font-size:.97rem;line-height:1.85;color:rgba(255,255,255,.75);font-weight:300;margin-bottom:1rem}
+.menu-nights{display:flex;flex-direction:column;gap:.8rem;margin-top:1.5rem}
+.menu-night{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:1rem 1.4rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.menu-night-left h4{font-family:'Playfair Display',Georgia,serif;font-size:.95rem;margin-bottom:.15rem}
+.menu-night-left p{font-size:.78rem;color:rgba(255,255,255,.6);font-weight:300}
+.menu-night-price{font-size:1.5rem;font-weight:600;flex-shrink:0}
+.menu-night-price span{font-size:.72rem;font-weight:300;color:rgba(255,255,255,.6);display:block;text-align:right}
+.dining-courses{display:flex;flex-direction:column;gap:.6rem}
+.course-item{display:flex;gap:.8rem;align-items:flex-start;padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.12)}
 .course-item:last-child{border-bottom:none}
-.course-num{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0;color:rgba(255,255,255,.7)}
-.course-item h4{font-family:'Playfair Display',Georgia,serif;font-size:.95rem;margin-bottom:.2rem;color:#fff}
-.course-item p{font-size:.82rem;color:rgba(255,255,255,.55);font-weight:300;line-height:1.5}
+.course-num{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;color:rgba(255,255,255,.7)}
+.course-item h4{font-family:'Playfair Display',Georgia,serif;font-size:.9rem;margin-bottom:.15rem;color:#fff}
+.course-item p{font-size:.8rem;color:rgba(255,255,255,.55);font-weight:300;line-height:1.5}
 .gallery{background:var(--green);padding:4rem 0}
-.gallery-header{padding:0 5% 2.5rem}
+.gallery-header{padding:0 5% 2rem}
 .gallery-header .section-label{color:#c8d8a8}
 .gallery-header .section-title{color:#fff}
-.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:200px 200px;gap:4px;padding:0 5%}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:180px 180px;gap:3px;padding:0 5%}
 .gallery-item{overflow:hidden;border-radius:2px}
 .gallery-item:first-child{grid-column:span 2;grid-row:span 2}
-.gallery-item div{width:100%;height:100%;transition:transform .5s}
+.gallery-item div{width:100%;height:100%;transition:transform .5s;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);font-size:2.5rem}
+.gallery-item:first-child div{font-size:3.5rem}
 .gallery-item:hover div{transform:scale(1.06)}
+.g1{background:linear-gradient(135deg,#1a3a2a,#3d7a54);height:100%}
+.g2{background:linear-gradient(135deg,#6a2a1a,#a84a36);height:100%}
+.g3{background:linear-gradient(135deg,#2a3a1a,#4a5a2a);height:100%}
+.g4{background:linear-gradient(135deg,#3a2a1a,#7a4a2a);height:100%}
+.g5{background:linear-gradient(135deg,#1a2a2a,#2a4a4a);height:100%}
 .testimonials{background:var(--cream-dark)}
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.testi-card{background:var(--white);border-radius:4px;padding:2rem;border-top:3px solid var(--terra)}
-.testi-stars{color:var(--terra);font-size:.9rem;margin-bottom:.8rem}
-.testi-text{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.97rem;color:var(--text-mid);line-height:1.7;margin-bottom:1.2rem}
-.testi-author{font-size:.8rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.1em}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem}
+.testi-card{background:var(--white);border-radius:4px;padding:1.6rem;border-top:3px solid var(--terra)}
+.testi-stars{color:var(--terra);font-size:.85rem;margin-bottom:.7rem}
+.testi-text{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.93rem;color:var(--text-mid);line-height:1.7;margin-bottom:1rem}
+.testi-author{font-size:.76rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.1em}
 .location{background:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
-.location-info p{font-size:.95rem;line-height:1.8;color:var(--text-mid);font-weight:300;margin-bottom:1.5rem}
-.contact-items{display:flex;flex-direction:column;gap:.8rem;margin-bottom:2rem}
-.contact-item{display:flex;gap:.8rem;align-items:center;font-size:.9rem;color:var(--text-mid)}
-.contact-icon{width:32px;height:32px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
-.map-placeholder{height:350px;background:var(--green-mid);border-radius:4px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:.9rem}
-footer{background:var(--text-dark);color:rgba(255,255,255,.5);padding:3rem 5%;display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;font-size:.83rem}
-footer h4{font-family:'Playfair Display',Georgia,serif;color:#fff;margin-bottom:.8rem;font-size:1rem}
+.location-info p{font-size:.93rem;line-height:1.8;color:var(--text-mid);font-weight:300;margin-bottom:1.5rem}
+.contact-items{display:flex;flex-direction:column;gap:.7rem;margin-bottom:2rem}
+.contact-item{display:flex;gap:.7rem;align-items:center;font-size:.88rem;color:var(--text-mid)}
+.contact-icon{width:30px;height:30px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
+.map-placeholder{height:300px;background:var(--green-mid,#2c5c3f);border-radius:4px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:.85rem}
+footer{background:var(--text-dark);color:rgba(255,255,255,.5);padding:3rem 5%;display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;font-size:.82rem}
+footer h4{font-family:'Playfair Display',Georgia,serif;color:#fff;margin-bottom:.8rem;font-size:.95rem}
 footer a{color:rgba(255,255,255,.4);text-decoration:none;display:block;margin-bottom:.4rem;transition:color .2s}
 footer a:hover{color:rgba(255,255,255,.9)}
-.footer-logo{font-family:'Playfair Display',Georgia,serif;font-size:1.3rem;color:#fff;margin-bottom:.5rem}
+.footer-logo{font-family:'Playfair Display',Georgia,serif;font-size:1.2rem;color:#fff;margin-bottom:.5rem}
 .footer-logo em{font-style:italic;color:#c8d8a8}
-.float-btn{position:fixed;bottom:2rem;right:2rem;z-index:200;background:var(--terra);color:#fff;border:none;padding:.9rem 1.8rem;border-radius:2px;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 20px rgba(139,58,42,.45);transition:all .3s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:.6rem}
+.float-btn{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;background:var(--terra);color:#fff;border:none;padding:.85rem 1.6rem;border-radius:2px;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 20px rgba(139,58,42,.45);transition:all .3s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:.5rem}
 .float-btn:hover{background:var(--terra-mid);transform:translateY(-2px)}
-.float-dot{width:7px;height:7px;border-radius:50%;background:#8fdb8f;animation:pulse 2s infinite}
+.float-dot{width:6px;height:6px;border-radius:50%;background:#8fdb8f;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.8)}}
 .modal-overlay{position:fixed;inset:0;z-index:300;background:rgba(10,20,14,.75);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;padding:1rem}
 .modal-overlay.open{opacity:1;pointer-events:all}
-.modal{background:var(--white);border-radius:4px;width:100%;max-width:700px;max-height:90vh;overflow-y:auto;transform:translateY(20px);transition:transform .3s}
+.modal{background:var(--white);border-radius:4px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;transform:translateY(20px);transition:transform .3s}
 .modal-overlay.open .modal{transform:translateY(0)}
-.modal-header{background:var(--green);padding:1.8rem 2rem;display:flex;justify-content:space-between;align-items:flex-start}
-.modal-header h2{font-family:'Playfair Display',Georgia,serif;color:#fff;font-size:1.5rem;margin-bottom:.2rem}
-.modal-header p{font-size:.82rem;color:rgba(255,255,255,.55);font-weight:300}
-.modal-close{background:none;border:none;color:rgba(255,255,255,.6);font-size:1.4rem;cursor:pointer;line-height:1;transition:color .2s}
+.modal-header{background:var(--green);padding:1.5rem 1.8rem;display:flex;justify-content:space-between;align-items:flex-start}
+.modal-header h2{font-family:'Playfair Display',Georgia,serif;color:#fff;font-size:1.4rem;margin-bottom:.15rem}
+.modal-header p{font-size:.8rem;color:rgba(255,255,255,.55);font-weight:300}
+.modal-close{background:none;border:none;color:rgba(255,255,255,.6);font-size:1.3rem;cursor:pointer;line-height:1}
 .modal-close:hover{color:#fff}
-.modal-body{padding:2rem}
-.tabs{display:flex;border-bottom:1.5px solid #e0dbd0;margin-bottom:1.5rem}
-.tab{padding:.65rem 1.2rem;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;color:var(--text-light);border-bottom:2px solid transparent;margin-bottom:-1.5px;transition:all .2s;background:none;border-left:none;border-right:none;border-top:none;font-family:'DM Sans',sans-serif}
+.modal-body{padding:1.5rem}
+.tabs{display:flex;border-bottom:1.5px solid #e0dbd0;margin-bottom:1.2rem}
+.tab{padding:.6rem 1rem;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;color:var(--text-light);border-bottom:2px solid transparent;margin-bottom:-1.5px;transition:all .2s;background:none;border-left:none;border-right:none;border-top:none;font-family:'DM Sans',sans-serif}
 .tab.active{color:var(--green);border-bottom-color:var(--green)}
 .tab-panel{display:none}
 .tab-panel.active{display:block}
-.cal-wrap{margin-bottom:1.5rem}
-.cal-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem}
-.cal-nav button{background:none;border:1px solid #ddd;color:var(--text-mid);width:30px;height:30px;border-radius:2px;cursor:pointer;font-size:.9rem;transition:all .2s}
+.cal-wrap{margin-bottom:1.2rem}
+.cal-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem}
+.cal-nav button{background:none;border:1px solid #ddd;color:var(--text-mid);width:28px;height:28px;border-radius:2px;cursor:pointer;font-size:.9rem}
 .cal-nav button:hover{background:var(--green);color:#fff;border-color:var(--green)}
-.cal-title{font-family:'Playfair Display',Georgia,serif;font-size:1rem;color:var(--green)}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
-.cal-dow{text-align:center;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-light);padding:.3rem 0}
-.cal-day{text-align:center;padding:.5rem .2rem;border-radius:2px;font-size:.83rem;cursor:pointer;transition:all .2s;border:1px solid transparent;user-select:none}
+.cal-title{font-family:'Playfair Display',Georgia,serif;font-size:.95rem;color:var(--green)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-dow{text-align:center;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-light);padding:.25rem 0}
+.cal-day{text-align:center;padding:.45rem .1rem;border-radius:2px;font-size:.8rem;cursor:pointer;transition:all .2s;border:1px solid transparent;user-select:none}
 .cal-day.empty,.cal-day.past{color:#ccc;cursor:not-allowed}
 .cal-day.booked{background:#f0ebe0;color:#bbb;cursor:not-allowed;text-decoration:line-through}
-.cal-day.available:hover{background:#e8f0e0;border-color:var(--green-light)}
-.cal-day.check-in{background:var(--green);color:#fff;border-radius:2px 0 0 2px}
+.cal-day.available:hover{background:#e8f0e0}
+.cal-day.check-in{background:var(--green);color:#fff}
 .cal-day.in-range{background:#d4e8d0;color:var(--green)}
-.cal-day.check-out{background:var(--green);color:#fff;border-radius:0 2px 2px 0}
-.cal-legend{display:flex;gap:1rem;margin-top:.6rem;flex-wrap:wrap}
-.cal-legend-item{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--text-light)}
-.cal-legend-dot{width:12px;height:12px;border-radius:1px}
-.suggestion-box{background:#fff8ee;border:1.5px solid #e8a040;border-radius:4px;padding:1rem 1.2rem;margin-bottom:1.2rem}
-.suggestion-box h4{font-size:.82rem;color:#7a4a10;letter-spacing:.05em;margin-bottom:.6rem;text-transform:uppercase}
-.suggestion-opt{display:flex;align-items:center;justify-content:space-between;padding:.6rem .8rem;background:#fff;border:1px solid #e0c080;border-radius:2px;cursor:pointer;transition:all .2s;font-size:.85rem;color:var(--text-mid);margin-bottom:.5rem}
+.cal-day.check-out{background:var(--green);color:#fff}
+.suggestion-box{background:#fff8ee;border:1.5px solid #e8a040;border-radius:4px;padding:.9rem 1.1rem;margin-bottom:1.1rem}
+.suggestion-box h4{font-size:.78rem;color:#7a4a10;margin-bottom:.5rem;text-transform:uppercase}
+.suggestion-opt{display:flex;align-items:center;justify-content:space-between;padding:.55rem .7rem;background:#fff;border:1px solid #e0c080;border-radius:2px;cursor:pointer;font-size:.82rem;color:var(--text-mid);margin-bottom:.4rem}
 .suggestion-opt:hover{border-color:var(--green);background:#f0f5ef}
-.suggestion-opt strong{color:var(--green)}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
-.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
-.form-group label{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid)}
-.form-group input,.form-group select{padding:.7rem .9rem;border:1.5px solid #ddd;border-radius:2px;font-size:.9rem;color:var(--text-dark);background:#fff;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem}
+.form-group{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.8rem}
+.form-group label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid)}
+.form-group input,.form-group select{padding:.65rem .85rem;border:1.5px solid #ddd;border-radius:2px;font-size:.88rem;color:var(--text-dark);background:#fff;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
 .form-group input:focus,.form-group select:focus{border-color:var(--green)}
-.pricing-info{background:#f0f5ef;border-radius:4px;padding:1rem 1.2rem;margin-bottom:1.2rem;font-size:.84rem;color:var(--text-mid);line-height:1.6}
-.pricing-info strong{color:var(--green)}
-.extras-title{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);margin-bottom:.8rem}
-.extras-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.5rem}
-.extra-item{display:flex;align-items:center;gap:.7rem;padding:.8rem 1rem;border:1.5px solid #e8e4d8;border-radius:2px;cursor:pointer;transition:all .2s}
-.extra-item:hover{border-color:var(--green);background:#f0f5ef}
-.extra-item input[type=checkbox]{accent-color:var(--green);width:14px;height:14px;cursor:pointer;flex-shrink:0}
-.extra-item.checked{border-color:var(--green);background:#eef5eb}
-.extra-label{font-size:.85rem;color:var(--text-mid);line-height:1.3}
-.extra-label strong{display:block;font-size:.82rem;color:var(--text-dark)}
-.extra-label small{color:var(--text-light);font-size:.75rem}
-.urgency-bar{background:#fff8f0;border:1px solid #f0c080;border-radius:2px;padding:.7rem 1rem;font-size:.82rem;color:#7a4a10;margin-bottom:1.2rem;display:flex;align-items:center;gap:.5rem}
-.urgency-dot{width:7px;height:7px;background:#e08020;border-radius:50%;flex-shrink:0}
-.price-summary{background:var(--cream);border-radius:2px;padding:1rem 1.2rem;margin-bottom:1.2rem}
-.price-row{display:flex;justify-content:space-between;font-size:.87rem;color:var(--text-mid);margin-bottom:.3rem}
-.price-row.total{font-size:1rem;color:var(--text-dark);font-weight:500;padding-top:.6rem;border-top:1px solid #ddd;margin-top:.4rem;margin-bottom:0}
-.submit-btn{width:100%;background:var(--terra);color:#fff;border:none;padding:1rem;border-radius:2px;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s;font-family:'DM Sans',sans-serif}
+.pricing-info{background:#f0f5ef;border-radius:4px;padding:.85rem 1rem;margin-bottom:1.1rem;font-size:.82rem;color:var(--text-mid);line-height:1.6}
+.extras-title{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);margin-bottom:.7rem}
+.extras-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:1.2rem}
+.extra-item{display:flex;align-items:center;gap:.6rem;padding:.7rem .85rem;border:1.5px solid #e8e4d8;border-radius:2px;cursor:pointer;transition:all .2s}
+.extra-item:hover,.extra-item.checked{border-color:var(--green);background:#eef5eb}
+.extra-item input[type=checkbox]{accent-color:var(--green);width:13px;height:13px;cursor:pointer;flex-shrink:0}
+.extra-label strong{display:block;font-size:.8rem;color:var(--text-dark)}
+.extra-label small{color:var(--text-light);font-size:.72rem}
+.urgency-bar{background:#fff8f0;border:1px solid #f0c080;border-radius:2px;padding:.65rem .9rem;font-size:.8rem;color:#7a4a10;margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
+.urgency-dot{width:6px;height:6px;background:#e08020;border-radius:50%;flex-shrink:0}
+.price-summary{background:var(--cream);border-radius:2px;padding:.9rem 1rem;margin-bottom:1.1rem}
+.price-row{display:flex;justify-content:space-between;font-size:.84rem;color:var(--text-mid);margin-bottom:.25rem}
+.price-row.total{font-size:.97rem;color:var(--text-dark);font-weight:500;padding-top:.5rem;border-top:1px solid #ddd;margin-top:.3rem;margin-bottom:0}
+.submit-btn{width:100%;background:var(--terra);color:#fff;border:none;padding:.9rem;border-radius:2px;font-size:.87rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s;font-family:'DM Sans',sans-serif}
 .submit-btn:hover{background:var(--terra-mid)}
-.trust-badges{display:flex;gap:1.5rem;justify-content:center;margin-top:1rem;flex-wrap:wrap}
-.trust-badge{font-size:.75rem;color:var(--text-light);display:flex;align-items:center;gap:.3rem}
-.automation-panel{background:#f0f5ef;border:1.5px solid #b8d0b0;border-radius:4px;padding:1.5rem;margin-bottom:1.5rem}
-.automation-panel h4{font-family:'Playfair Display',Georgia,serif;color:var(--green);margin-bottom:.6rem;font-size:1rem}
-.automation-panel p{font-size:.84rem;color:var(--text-mid);line-height:1.65}
-.automation-steps{margin-top:.8rem;display:flex;flex-direction:column;gap:.4rem}
-.automation-step{display:flex;gap:.7rem;align-items:flex-start;font-size:.82rem;color:var(--text-mid)}
-.step-num{width:20px;height:20px;background:var(--green);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;flex-shrink:0;margin-top:.1rem}
+.trust-badges{display:flex;gap:1.2rem;justify-content:center;margin-top:.9rem;flex-wrap:wrap}
+.trust-badge{font-size:.72rem;color:var(--text-light)}
 .c1{background:linear-gradient(135deg,#1a3a2a,#2c5c3f)}
 .c2{background:linear-gradient(135deg,#2c3a1a,#3d5520)}
 .c3{background:linear-gradient(135deg,#3a2010,#6a3820)}
-.g1{background:linear-gradient(135deg,#1a3a2a,#3d7a54);height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);font-size:3rem}
-.g2{background:linear-gradient(135deg,#6a2a1a,#a84a36);height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);font-size:2.5rem}
-.g3{background:linear-gradient(135deg,#2a3a1a,#4a5a2a);height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);font-size:2.5rem}
-.g4{background:linear-gradient(135deg,#3a2a1a,#7a4a2a);height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);font-size:2.5rem}
-.g5{background:linear-gradient(135deg,#1a2a2a,#2a4a4a);height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);font-size:2.5rem}
+@media(max-width:900px){
+  .nav-links,.nav-book-btn,.lang-switcher{display:none}
+  .hamburger{display:flex}
+  .about,.dining,.location{grid-template-columns:1fr}
+  .cycling-grid{grid-template-columns:1fr 1fr}
+  .testi-grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr 1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gallery-item:first-child{grid-column:span 2;grid-row:span 1}
+  .gallery-item div{height:160px}
+  .gallery-item:first-child div{height:200px}
+}
+@media(max-width:600px){
+  section{padding:3.5rem 5%}
+  .cycling-grid,.rooms-grid,.testi-grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr}
+  .form-row,.extras-grid{grid-template-columns:1fr}
+  .float-btn .float-text{display:none}
+  .float-btn{padding:.85rem 1rem}
+  .gallery-item div{height:130px}
+}
 </style>
 </head>
 <body>
 <nav id="nav">
   <div class="nav-logo">Sempre <em>Domenica</em></div>
   <ul class="nav-links">
-    <li><a href="#about">Story</a></li>
-    <li><a href="#cycling">Cycling</a></li>
-    <li><a href="#rooms">Rooms</a></li>
-    <li><a href="#dining">Dining</a></li>
-    <li><a href="#location">Find us</a></li>
+    <li><a href="#about" data-i="nav_story">Story</a></li>
+    <li><a href="#cycling" data-i="nav_cycling">Cycling</a></li>
+    <li><a href="#rooms" data-i="nav_rooms">Rooms</a></li>
+    <li><a href="#dining" data-i="nav_dining">Dining</a></li>
+    <li><a href="#location" data-i="nav_find">Find us</a></li>
     <li><a href="la-famiglia.html" style="color:#c8d8a8">La Famiglia</a></li>
   </ul>
-  <button class="nav-book-btn" onclick="openModal()">Book a stay</button>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('nl')">NL</button>
+      <button class="lang-btn" onclick="setLang('it')">IT</button>
+    </div>
+    <button class="nav-book-btn" onclick="openModal()" data-i="book_btn">Book a stay</button>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
-
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="toggleMenu()" data-i="nav_story">Story</a>
+  <a href="#cycling" onclick="toggleMenu()" data-i="nav_cycling">Cycling</a>
+  <a href="#rooms" onclick="toggleMenu()" data-i="nav_rooms">Rooms</a>
+  <a href="#dining" onclick="toggleMenu()" data-i="nav_dining">Dining</a>
+  <a href="#location" onclick="toggleMenu()" data-i="nav_find">Find us</a>
+  <a href="la-famiglia.html" style="color:#c8d8a8">La Famiglia</a>
+  <div class="mobile-lang">
+    <button class="lang-btn active" onclick="setLang('en');toggleMenu()">EN</button>
+    <button class="lang-btn" onclick="setLang('nl');toggleMenu()">NL</button>
+    <button class="lang-btn" onclick="setLang('it');toggleMenu()">IT</button>
+  </div>
+  <button class="mobile-book" onclick="openModal();toggleMenu()" data-i="book_btn">Book a stay</button>
+</div>
 <section class="hero" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-pattern"></div>
+  <div class="hero-bg"></div><div class="hero-pattern"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">A cycling &amp; gastronomy retreat</p>
+    <p class="hero-eyebrow" data-i="hero_eyebrow">A cycling &amp; gastronomy retreat</p>
     <h1>Sempre<br><em>Domenica</em></h1>
-    <p class="hero-sub">Where every day feels like Sunday. A boutique B&amp;B for cyclists and food lovers tucked into the landscape.</p>
+    <div class="hero-welcome"><span>🌿</span><span data-i="hero_welcome">Cyclists welcome. Non-cyclists equally so.</span></div>
+    <p class="hero-sub" data-i="hero_sub">Where every day feels like Sunday. A boutique B&amp;B for anyone who loves good food, beautiful surroundings and a slower pace.</p>
     <div class="hero-ctas">
-      <button class="btn-primary" onclick="openModal()">Reserve your room</button>
-      <button class="btn-outline" onclick="document.getElementById('cycling').scrollIntoView({behavior:'smooth'})">Explore</button>
+      <button class="btn-primary" onclick="openModal()" data-i="book_btn">Reserve your room</button>
+      <button class="btn-outline" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})" data-i="explore_btn">Explore</button>
     </div>
   </div>
   <div class="hero-scroll"><div class="scroll-line"></div><span>scroll</span></div>
 </section>
-
+<div class="welcome-strip"><p data-i="welcome_strip"><strong>You don't need to ride a bike to stay here.</strong> Sempre Domenica is for anyone looking for good food, great company and a place to slow down. The cycling is one way to enjoy the surroundings — not the only one.</p></div>
 <section class="about" id="about">
   <div class="about-text">
-    <p class="section-label">Our story</p>
-    <h2 class="section-title">A place to <em>arrive</em>,<br>and never want to leave</h2>
-    <p>Sempre Domenica was born from a simple idea: combine two of life's greatest pleasures — the freedom of riding and the joy of a long, unhurried meal.</p>
-    <p>We're a small, passionate team who ride ourselves. We've designed every corner of this place around what we wish existed on our own tours.</p>
-    <br/><button class="btn-primary" onclick="openModal()">Book your escape</button>
+    <p class="section-label" data-i="about_label">Our story</p>
+    <h2 class="section-title" data-i="about_title">A place to <em>arrive</em>,<br>and never want to leave</h2>
+    <p data-i="about_p1">Sempre Domenica was born from a simple idea: combine two of life's greatest pleasures — the freedom of the open road and the joy of a long, unhurried meal.</p>
+    <p data-i="about_p2">We've designed every corner of this place around what we wish existed on our own travels.</p>
+    <br/><button class="btn-primary" onclick="openModal()" data-i="book_btn">Book your escape</button>
   </div>
   <div class="about-visual">
-    <div class="about-card"><div class="icon">🚲</div><h4>Cyclist-first</h4><p>Secure storage, workshop, wash station — built by riders, for riders.</p></div>
-    <div class="about-card" style="background:var(--terra)"><div class="icon">🍷</div><h4>Family table</h4><p>Shared 3-course dinners. One table, all guests.</p></div>
-    <div class="about-card" style="background:var(--green-light)"><div class="icon">🌿</div><h4>Small &amp; personal</h4><p>Only a handful of rooms. Quiet, unhurried, genuinely warm.</p></div>
-    <div class="about-card" style="background:#2c3a1a"><div class="icon">📍</div><h4>Great routes</h4><p>Gravel and road routes from the door. GPX files included.</p></div>
+    <div class="about-card"><div class="icon">🚲</div><h4 data-i="card1_h">Cyclist-friendly</h4><p data-i="card1_p">Secure storage, workshop, wash station — but no obligation to ride.</p></div>
+    <div class="about-card" style="background:var(--terra)"><div class="icon">🍷</div><h4 data-i="card2_h">Family table</h4><p data-i="card2_p">Shared 3-course dinners. One table, all guests, great wine.</p></div>
+    <div class="about-card" style="background:var(--green-light)"><div class="icon">🌿</div><h4 data-i="card3_h">Small &amp; personal</h4><p data-i="card3_p">Only a handful of rooms. Quiet, unhurried, genuinely warm.</p></div>
+    <div class="about-card" style="background:#2c3a1a"><div class="icon">📍</div><h4 data-i="card4_h">Beautiful surroundings</h4><p data-i="card4_p">Walks, routes and views straight from the door.</p></div>
   </div>
 </section>
-
 <section class="cycling" id="cycling">
-  <p class="section-label">For riders</p>
-  <h2 class="section-title">Everything a cyclist <em>needs</em></h2>
-  <p style="color:rgba(255,255,255,.6);font-weight:300;font-size:1rem;max-width:580px;line-height:1.8">We've thought of every detail so you can focus on the road.</p>
+  <p class="section-label" data-i="cycling_label">For riders</p>
+  <h2 class="section-title" data-i="cycling_title">Everything a cyclist <em>needs</em></h2>
+  <div class="cycling-note"><span style="font-size:1.2rem;flex-shrink:0">💡</span><span data-i="cycling_note">Not a cyclist? Skip this section — everything else on this page is for you too. The facilities below are a bonus for those who ride, not a requirement for staying with us.</span></div>
   <div class="cycling-grid">
-    <div class="cycling-feature"><div class="feat-icon">🔒</div><h3>Secure bike storage</h3><p>Locked, dry, monitored overnight storage for road and gravel bikes.</p></div>
-    <div class="cycling-feature"><div class="feat-icon">🔧</div><h3>Workshop &amp; tools</h3><p>Full workshop with stand, Park Tool set, spare tubes, cables and lube.</p></div>
-    <div class="cycling-feature"><div class="feat-icon">🚿</div><h3>Bike wash station</h3><p>Outdoor wash bay with high-pressure hose, brushes and drying rack.</p></div>
-    <div class="cycling-feature"><div class="feat-icon">🗺️</div><h3>GPX routes</h3><p>Curated local routes — mellow gravel loops to challenging road climbs.</p></div>
-    <div class="cycling-feature"><div class="feat-icon">⚡</div><h3>E-bike charging</h3><p>Dedicated charging points for e-bikes and devices throughout.</p></div>
-    <div class="cycling-feature"><div class="feat-icon">🧁</div><h3>Ride fuel</h3><p>Pre-ride breakfast from 6:30am. Bars, coffee and rice cakes to go.</p></div>
+    <div class="cycling-feature"><div class="feat-icon">🔒</div><h3 data-i="cf1_h">Secure storage</h3><p data-i="cf1_p">Locked, dry, monitored storage for road and gravel bikes.</p></div>
+    <div class="cycling-feature"><div class="feat-icon">🔧</div><h3 data-i="cf2_h">Workshop &amp; tools</h3><p data-i="cf2_p">Full workshop with stand, Park Tool set, spare tubes and lube.</p></div>
+    <div class="cycling-feature"><div class="feat-icon">🚿</div><h3 data-i="cf3_h">Bike wash</h3><p data-i="cf3_p">Outdoor wash bay with high-pressure hose and drying rack.</p></div>
+    <div class="cycling-feature"><div class="feat-icon">🗺️</div><h3 data-i="cf4_h">GPX routes</h3><p data-i="cf4_p">Curated local routes — mellow gravel to challenging climbs.</p></div>
+    <div class="cycling-feature"><div class="feat-icon">⚡</div><h3 data-i="cf5_h">E-bike charging</h3><p data-i="cf5_p">Dedicated charging points throughout the building.</p></div>
+    <div class="cycling-feature"><div class="feat-icon">🧁</div><h3 data-i="cf6_h">Ride fuel</h3><p data-i="cf6_p">Pre-ride breakfast from 6:30am. Bars and coffee to go.</p></div>
   </div>
 </section>
-
 <section class="rooms" id="rooms">
-  <p class="section-label">Where you sleep</p>
-  <h2 class="section-title">Our <em>rooms</em></h2>
-  <p style="color:var(--text-light);font-size:.97rem;max-width:500px;line-height:1.8;font-weight:300">Each room is different. All calm, comfortable, designed for people who value a good night after a long day in the saddle.</p>
+  <p class="section-label" data-i="rooms_label">Where you sleep</p>
+  <h2 class="section-title" data-i="rooms_title">Our <em>rooms</em></h2>
+  <p style="color:var(--text-light);font-size:.95rem;max-width:500px;line-height:1.8;font-weight:300" data-i="rooms_sub">Each room is different. All calm, comfortable and designed for a good night's rest.</p>
   <div class="rooms-grid">
-    <div class="room-card">
-      <div class="room-img"><div class="room-img-bg c1"></div><div class="room-img-overlay"></div><span class="room-badge">Most popular</span></div>
-      <div class="room-info"><h3>The Gravel Room</h3><p>Ground floor, direct bike storage access. Earthy tones, hardwood and a deep soaking tub. Sleeps 2.</p>
-      <div class="room-footer"><div class="room-price">from €115 <span>/ night</span></div><button class="room-book" onclick="openModal('Gravel Room')">Book room</button></div></div>
-    </div>
-    <div class="room-card">
-      <div class="room-img"><div class="room-img-bg c2"></div><div class="room-img-overlay"></div><span class="room-badge">Views</span></div>
-      <div class="room-info"><h3>The Loft</h3><p>Top floor, exposed beams and countryside views. Light, airy and quietly luxurious. Sleeps 2.</p>
-      <div class="room-footer"><div class="room-price">from €130 <span>/ night</span></div><button class="room-book" onclick="openModal('The Loft')">Book room</button></div></div>
-    </div>
-    <div class="room-card">
-      <div class="room-img"><div class="room-img-bg c3"></div><div class="room-img-overlay"></div><span class="room-badge">Spacious</span></div>
-      <div class="room-info"><h3>The Garden Suite</h3><p>Spacious suite with private garden terrace. Perfect for a duo wanting extra space. Sleeps 2-3.</p>
-      <div class="room-footer"><div class="room-price">from €155 <span>/ night</span></div><button class="room-book" onclick="openModal('Garden Suite')">Book room</button></div></div>
-    </div>
+    <div class="room-card"><div class="room-img"><div class="room-img-bg c1"></div><div class="room-img-overlay"></div><span class="room-badge" data-i="badge_popular">Most popular</span></div><div class="room-info"><h3 data-i="room1_name">The Gravel Room</h3><p data-i="room1_desc">Ground floor with direct garden access. Earthy tones, hardwood and a deep soaking tub. Sleeps 2.</p><div class="room-footer"><div class="room-price">from €115 <span>/ night</span></div><button class="room-book" onclick="openModal('Gravel Room')" data-i="room_book">Book room</button></div></div></div>
+    <div class="room-card"><div class="room-img"><div class="room-img-bg c2"></div><div class="room-img-overlay"></div><span class="room-badge" data-i="badge_views">Views</span></div><div class="room-info"><h3 data-i="room2_name">The Loft</h3><p data-i="room2_desc">Top floor with exposed beams and countryside views. Light, airy and quietly luxurious. Sleeps 2.</p><div class="room-footer"><div class="room-price">from €130 <span>/ night</span></div><button class="room-book" onclick="openModal('The Loft')" data-i="room_book">Book room</button></div></div></div>
+    <div class="room-card"><div class="room-img"><div class="room-img-bg c3"></div><div class="room-img-overlay"></div><span class="room-badge" data-i="badge_spacious">Spacious</span></div><div class="room-info"><h3 data-i="room3_name">The Garden Suite</h3><p data-i="room3_desc">Spacious suite with private garden terrace. Perfect for those wanting extra space. Sleeps 2-3.</p><div class="room-footer"><div class="room-price">from €155 <span>/ night</span></div><button class="room-book" onclick="openModal('Garden Suite')" data-i="room_book">Book room</button></div></div></div>
   </div>
 </section>
-
 <section class="dining" id="dining">
   <div class="dining-text">
-    <p class="section-label">At the table</p>
-    <h2 class="section-title">One table,<br><em>all guests</em></h2>
-    <p>Two or three evenings a week we seat everyone together — one long table, one set menu, one shared evening. Strangers arrive, friends leave.</p>
-    <p>Dinners are set menu only. We cook what's in season, what's local, and what we're proud of.</p>
+    <p class="section-label" data-i="dining_label">At the table</p>
+    <h2 class="section-title" data-i="dining_title">One table,<br><em>all guests</em></h2>
+    <p data-i="dining_p1">Two or three evenings a week we seat everyone together — one long table, one set menu, one shared evening.</p>
+    <p data-i="dining_p2">Dinners are set menu only. We cook what's in season. Vegetarian always available.</p>
     <div class="menu-nights">
-      <div class="menu-night"><div class="menu-night-left"><h4>Dinner evening</h4><p>3 courses · Set menu · Family style · Wine available</p></div><div class="menu-night-price">€25<span>per person</span></div></div>
-      <div class="menu-night"><div class="menu-night-left"><h4>Chef's table evening</h4><p>3 courses · Extended set menu · Curated wine pairing</p></div><div class="menu-night-price">€30<span>per person</span></div></div>
+      <div class="menu-night"><div class="menu-night-left"><h4 data-i="dinner1_h">Dinner evening</h4><p data-i="dinner1_sub">3 courses · Set menu · Family style</p></div><div class="menu-night-price">€25<span data-i="per_person">per person</span></div></div>
+      <div class="menu-night"><div class="menu-night-left"><h4 data-i="dinner2_h">Chef's table</h4><p data-i="dinner2_sub">Extended menu · Curated wine pairing</p></div><div class="menu-night-price">€30<span data-i="per_person">per person</span></div></div>
     </div>
   </div>
   <div class="dining-courses">
-    <p style="font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:.5rem">A typical evening</p>
-    <div class="course-item"><div class="course-num">1</div><div><h4>Starter</h4><p>Seasonal soup or small plate — something warm after the day's ride.</p></div></div>
-    <div class="course-item"><div class="course-num">2</div><div><h4>Main</h4><p>Generous, honest cooking. Local meat, fish or vegetarian. Shared at the table.</p></div></div>
-    <div class="course-item"><div class="course-num">3</div><div><h4>Dessert</h4><p>House-made. Usually something with fruit. Always with coffee.</p></div></div>
-    <br/><button class="btn-outline" onclick="openModal()">Add dinner to your stay</button>
+    <p style="font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:.5rem" data-i="typical_evening">A typical evening</p>
+    <div class="course-item"><div class="course-num">1</div><div><h4 data-i="c1_h">Starter</h4><p data-i="c1_p">Seasonal soup or small plate — something warm after the day.</p></div></div>
+    <div class="course-item"><div class="course-num">2</div><div><h4 data-i="c2_h">Main</h4><p data-i="c2_p">Generous, honest cooking. Local meat, fish or vegetarian.</p></div></div>
+    <div class="course-item"><div class="course-num">3</div><div><h4 data-i="c3_h">Dessert</h4><p data-i="c3_p">House-made. Usually something with fruit. Always with coffee.</p></div></div>
+    <br/><button class="btn-outline" onclick="openModal()" data-i="add_dinner">Add dinner to your stay</button>
   </div>
 </section>
-
-<section class="gallery">
-  <div class="gallery-header"><p class="section-label">Gallery</p><h2 class="section-title" style="color:#fff">See the <em>place</em></h2></div>
-  <div class="gallery-grid">
-    <div class="gallery-item"><div class="g1">🏡</div></div>
-    <div class="gallery-item"><div class="g2">🍽️</div></div>
-    <div class="gallery-item"><div class="g3">🚵</div></div>
-    <div class="gallery-item"><div class="g4">🛏️</div></div>
-    <div class="gallery-item"><div class="g5">🌿</div></div>
-  </div>
-</section>
-
-<section class="testimonials">
-  <p class="section-label">Guest stories</p>
-  <h2 class="section-title">What riders are <em>saying</em></h2>
-  <div class="testi-grid">
-    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"The best post-ride dinner I've had in years. We stayed an extra night just because of the food."</p><p class="testi-author">— Lena V., Utrecht</p></div>
-    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Workshop is properly stocked, bike storage felt genuinely secure. Rare to find a place that truly gets cyclists."</p><p class="testi-author">— Marc D., Cycling tour guide</p></div>
-    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Came for two nights on a gravel trip, stayed four. The family dinner was the highlight."</p><p class="testi-author">— Sophie &amp; Tom, Antwerp</p></div>
-  </div>
-</section>
-
+<section class="gallery"><div class="gallery-header"><p class="section-label" data-i="gallery_label">Gallery</p><h2 class="section-title" style="color:#fff">See the <em>place</em></h2></div><div class="gallery-grid"><div class="gallery-item"><div class="g1">🏡</div></div><div class="gallery-item"><div class="g2">🍽️</div></div><div class="gallery-item"><div class="g3">🚵</div></div><div class="gallery-item"><div class="g4">🛏️</div></div><div class="gallery-item"><div class="g5">🌿</div></div></div></section>
+<section class="testimonials"><p class="section-label" data-i="testi_label">Guest stories</p><h2 class="section-title" data-i="testi_title">What guests are <em>saying</em></h2><div class="testi-grid"><div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text" data-i="t1">"The best post-ride dinner I've had in years. We stayed an extra night just because of the food."</p><p class="testi-author">— Lena V., Utrecht</p></div><div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text" data-i="t2">"Came without a bike — loved every moment. The family dinner alone is worth the trip."</p><p class="testi-author">— Anna &amp; Jorg, Berlin</p></div><div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text" data-i="t3">"Came for two nights on a gravel trip, stayed four. The family dinner was the highlight."</p><p class="testi-author">— Sophie &amp; Tom, Antwerp</p></div></div></section>
 <section class="location" id="location">
   <div class="location-info">
-    <p class="section-label">Find us</p>
-    <h2 class="section-title">Getting <em>here</em></h2>
-    <p>Situated in a quiet corner of the region with excellent cycling routes in every direction — flat gravel tracks to punchy climbs.</p>
+    <p class="section-label" data-i="loc_label">Find us</p>
+    <h2 class="section-title" data-i="loc_title">Getting <em>here</em></h2>
+    <p data-i="loc_p">Situated in a quiet corner of the region with beautiful surroundings in every direction.</p>
     <div class="contact-items">
       <div class="contact-item"><div class="contact-icon">📍</div> Via della Domenica 12</div>
       <div class="contact-item"><div class="contact-icon">📞</div> +39 000 000 0000</div>
       <div class="contact-item"><div class="contact-icon">✉️</div> ciao@sempredomenica.com</div>
     </div>
-    <button class="btn-primary" onclick="openModal()">Book now</button>
+    <button class="btn-primary" onclick="openModal()" data-i="book_btn">Book now</button>
   </div>
-  <div class="map-placeholder">[ Map placeholder ]</div>
+  <div class="map-placeholder">[ Map ]</div>
 </section>
-
 <footer>
-  <div><div class="footer-logo">Sempre <em>Domenica</em></div><p style="line-height:1.7">A cycling &amp; gastronomy B&amp;B.<br>Every day feels like Sunday.</p></div>
-  <div><h4>Navigate</h4><a href="#about">Our story</a><a href="#cycling">For cyclists</a><a href="#rooms">Rooms</a><a href="#dining">Dining</a><a href="#location">Find us</a></div>
-  <div><h4>Stay in touch</h4><a href="#">Instagram</a><a href="#">Strava club</a><a href="#">ciao@sempredomenica.com</a><p style="margin-top:.8rem;font-size:.75rem">© 2026 Sempre Domenica</p></div>
+  <div><div class="footer-logo">Sempre <em>Domenica</em></div><p style="line-height:1.7" data-i="footer_tagline">A B&amp;B for cyclists and food lovers.<br>Every day feels like Sunday.</p></div>
+  <div><h4 data-i="footer_nav">Navigate</h4><a href="#about" data-i="nav_story">Our story</a><a href="#cycling" data-i="nav_cycling">Cycling</a><a href="#rooms" data-i="nav_rooms">Rooms</a><a href="#dining" data-i="nav_dining">Dining</a><a href="#location" data-i="nav_find">Find us</a></div>
+  <div><h4 data-i="footer_contact">Stay in touch</h4><a href="#">Instagram</a><a href="#">Strava</a><a href="#">ciao@sempredomenica.com</a><p style="margin-top:.8rem;font-size:.72rem">© 2026 Sempre Domenica</p></div>
 </footer>
-
-<button class="float-btn" onclick="openModal()"><span class="float-dot"></span>Book a stay</button>
-
+<button class="float-btn" onclick="openModal()"><span class="float-dot"></span><span class="float-text" data-i="book_btn">Book a stay</span></button>
 <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
   <div class="modal">
-    <div class="modal-header">
-      <div><h2>Reserve your stay</h2><p>Live availability · Smart pricing · Instant confirmation</p></div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
+    <div class="modal-header"><div><h2 data-i="modal_h">Reserve your stay</h2><p data-i="modal_sub">Live availability · Smart pricing</p></div><button class="modal-close" onclick="closeModal()">✕</button></div>
     <div class="modal-body">
-      <div class="tabs">
-        <button class="tab active" onclick="switchTab('dates',this)">1. Dates &amp; Room</button>
-        <button class="tab" onclick="switchTab('extras',this)">2. Extras</button>
-        <button class="tab" onclick="switchTab('confirm',this)">3. Confirm</button>
-      </div>
+      <div class="tabs"><button class="tab active" onclick="switchTab('dates',this)" data-i="tab1">1. Dates</button><button class="tab" onclick="switchTab('extras',this)" data-i="tab2">2. Extras</button><button class="tab" onclick="switchTab('confirm',this)" data-i="tab3">3. Confirm</button></div>
       <div class="tab-panel active" id="tab-dates">
-        <div class="urgency-bar"><span class="urgency-dot"></span>Only <strong style="margin:0 .2rem">2 rooms</strong> available this weekend</div>
-        <p style="font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);margin-bottom:.6rem">Select your dates</p>
-        <div class="cal-wrap">
-          <div class="cal-nav"><button onclick="prevMonth()">&#8249;</button><span class="cal-title" id="calTitle"></span><button onclick="nextMonth()">&#8250;</button></div>
-          <div class="cal-grid" id="calGrid"></div>
-          <div class="cal-legend">
-            <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--green)"></div>Your selection</div>
-            <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#d4e8d0"></div>Selected range</div>
-            <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#f0ebe0;border:1px solid #ccc"></div>Booked</div>
-          </div>
-        </div>
-        <div class="suggestion-box" id="suggestionBox" style="display:none">
-          <h4>⚡ Alternative dates available</h4>
-          <p style="font-size:.82rem;color:#7a4a10;margin-bottom:.7rem">Your selected dates overlap with an existing booking:</p>
-          <div id="suggestionOptions"></div>
+        <div class="urgency-bar"><span class="urgency-dot"></span><span data-i="urgency">Only <strong>2 rooms</strong> available this weekend</span></div>
+        <div class="cal-wrap"><div class="cal-nav"><button onclick="prevMonth()">&#8249;</button><span class="cal-title" id="calTitle"></span><button onclick="nextMonth()">&#8250;</button></div><div class="cal-grid" id="calGrid"></div></div>
+        <div class="suggestion-box" id="suggestionBox" style="display:none"><h4 data-i="sugg_h">Alternative dates</h4><div id="suggestionOptions"></div></div>
+        <div class="form-row">
+          <div class="form-group"><label data-i="checkin">Check in</label><input type="text" id="checkinDisplay" readonly style="cursor:pointer;background:#f9f7f2"/></div>
+          <div class="form-group"><label data-i="checkout">Check out</label><input type="text" id="checkoutDisplay" readonly style="cursor:pointer;background:#f9f7f2"/></div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label>Check in</label><input type="text" id="checkinDisplay" placeholder="Select on calendar" readonly style="cursor:pointer;background:#f9f7f2"/></div>
-          <div class="form-group"><label>Check out</label><input type="text" id="checkoutDisplay" placeholder="Select on calendar" readonly style="cursor:pointer;background:#f9f7f2"/></div>
+          <div class="form-group"><label data-i="room_lbl">Room</label><select id="roomSelect" onchange="updatePrice()"><option value="135" data-i="room1_name">The Gravel Room</option><option value="155" data-i="room2_name">The Loft</option><option value="185" data-i="room3_name">The Garden Suite</option></select></div>
+          <div class="form-group"><label data-i="guests_lbl">Guests</label><select><option data-i="g1">1 guest</option><option selected data-i="g2">2 guests</option><option data-i="g3">3 guests</option></select></div>
         </div>
-        <div class="form-row">
-          <div class="form-group"><label>Room</label><select id="roomSelect" onchange="updatePrice()"><option value="135">The Gravel Room</option><option value="155">The Loft</option><option value="185">The Garden Suite</option></select></div>
-          <div class="form-group"><label>Guests</label><select><option>1 guest</option><option selected>2 guests</option><option>3 guests</option></select></div>
-        </div>
-        <div class="pricing-info" id="pricingInfo">Select dates to see pricing</div>
-        <button class="submit-btn" style="background:var(--green)" onclick="switchTab('extras',document.querySelectorAll('.tab')[1])">Continue to extras →</button>
+        <div class="pricing-info" id="pricingInfo" data-i="price_select">Select dates to see pricing</div>
+        <button class="submit-btn" style="background:var(--green)" onclick="switchTab('extras',document.querySelectorAll('.tab')[1])" data-i="continue_extras">Continue →</button>
       </div>
       <div class="tab-panel" id="tab-extras">
-        <p class="extras-title">Enhance your stay</p>
+        <p class="extras-title" data-i="enhance">Enhance your stay</p>
         <div class="extras-grid">
-          <label class="extra-item"><input type="checkbox" onchange="updatePrice()" data-price="15"><div class="extra-label"><strong>🍳 Breakfast</strong><small>€15 per person / day</small></div></label>
-          <label class="extra-item"><input type="checkbox" onchange="updatePrice()" data-price="25"><div class="extra-label"><strong>🍷 Dinner evening</strong><small>€25 per person</small></div></label>
-          <label class="extra-item"><input type="checkbox" onchange="updatePrice()" data-price="30"><div class="extra-label"><strong>👨‍🍳 Chef's table</strong><small>€30 per person</small></div></label>
-          <label class="extra-item"><input type="checkbox" onchange="updatePrice()" data-price="20"><div class="extra-label"><strong>🔧 Bike care kit</strong><small>€20 one-time</small></div></label>
-          <label class="extra-item"><input type="checkbox" onchange="updatePrice()" data-price="0"><div class="extra-label"><strong>🗺️ GPX route pack</strong><small>Free — curated local rides</small></div></label>
-          <label class="extra-item"><input type="checkbox" onchange="updatePrice()" data-price="18"><div class="extra-label"><strong>🍾 Welcome wine</strong><small>€18 — local bottle in room</small></div></label>
+          <label class="extra-item"><input type="checkbox" onchange="updatePrice()" data-price="15"><div class="extra-label"><strong>🍳 <span data-i="ex1">Breakfast</span></strong><small>€15 p.p./day</small></div></label>
+          <label class="extra-item"><input type="checkbox" onchange="updatePrice()" data-price="25"><div class="extra-label"><strong>🍷 <span data-i="ex2">Dinner evening</span></strong><small>€25 p.p.</small></div></label>
+          <label class="extra-item"><input type="checkbox" onchange="updatePrice()" data-price="30"><div class="extra-label"><strong>👨‍🍳 <span data-i="ex3">Chef's table</span></strong><small>€30 p.p.</small></div></label>
+          <label class="extra-item"><input type="checkbox" onchange="updatePrice()" data-price="20"><div class="extra-label"><strong>🔧 <span data-i="ex4">Bike care</span></strong><small>€20</small></div></label>
+          <label class="extra-item"><input type="checkbox" onchange="updatePrice()" data-price="0"><div class="extra-label"><strong>🗺️ <span data-i="ex5">GPX routes</span></strong><small data-i="free">Free</small></div></label>
+          <label class="extra-item"><input type="checkbox" onchange="updatePrice()" data-price="18"><div class="extra-label"><strong>🍾 <span data-i="ex6">Welcome wine</span></strong><small>€18</small></div></label>
         </div>
         <div class="price-summary">
-          <div class="price-row" style="font-style:italic;font-size:.78rem;color:var(--text-light)" id="seasonLabel2"></div>
+          <div class="price-row" style="font-style:italic;font-size:.76rem;color:var(--text-light)" id="seasonLabel2"></div>
           <div class="price-row"><span id="roomLabel2">Room</span><span id="roomPriceDisplay2">—</span></div>
-          <div class="price-row" id="discountRow2" style="display:none;color:var(--green)"><span>Early booking discount</span><span id="discountAmt2"></span></div>
-          <div class="price-row"><span>Extras</span><span id="extrasDisplay2">€0</span></div>
-          <div class="price-row total"><span>Total estimate</span><span id="totalPrice2">—</span></div>
+          <div class="price-row" id="discountRow2" style="display:none;color:var(--green)"><span data-i="early_disc">Early discount</span><span id="discountAmt2"></span></div>
+          <div class="price-row"><span data-i="extras_lbl">Extras</span><span id="extrasDisplay2">€0</span></div>
+          <div class="price-row total"><span data-i="total_lbl">Total</span><span id="totalPrice2">—</span></div>
         </div>
-        <button class="submit-btn" style="background:var(--green)" onclick="switchTab('confirm',document.querySelectorAll('.tab')[2])">Review booking →</button>
+        <button class="submit-btn" style="background:var(--green)" onclick="switchTab('confirm',document.querySelectorAll('.tab')[2])" data-i="review_booking">Review →</button>
       </div>
       <div class="tab-panel" id="tab-confirm">
-        <div class="automation-panel">
-          <h4>🔗 Live calendar &amp; automation</h4>
-          <p>When connected to your booking system, this form will:</p>
-          <div class="automation-steps">
-            <div class="automation-step"><div class="step-num">1</div>Check live availability in your Google / iCal calendar in real time</div>
-            <div class="automation-step"><div class="step-num">2</div>Block dates automatically on confirmation — no double bookings</div>
-            <div class="automation-step"><div class="step-num">3</div>Send confirmation email to guest + owner via Gmail/Zapier</div>
-            <div class="automation-step"><div class="step-num">4</div>Reminder 48h before check-in with directions &amp; cycling info</div>
-          </div>
-        </div>
-        <div id="bookingSummary" style="background:var(--cream);border-radius:4px;padding:1.2rem;margin-bottom:1.2rem;font-size:.88rem;line-height:1.9;color:var(--text-mid)"></div>
-        <div class="form-row">
-          <div class="form-group"><label>First name</label><input type="text" placeholder="Your name"/></div>
-          <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"/></div>
-        </div>
-        <div class="form-group"><label>Special requests (optional)</label><input type="text" placeholder="Dietary needs, arrival time, bike type…"/></div>
-        <button class="submit-btn" onclick="submitBooking()">Confirm booking request →</button>
-        <div class="trust-badges">
-          <span class="trust-badge">✓ Free cancellation</span>
-          <span class="trust-badge">✓ No booking fees</span>
-          <span class="trust-badge">✓ Best price direct</span>
-        </div>
+        <div id="bookingSummary" style="background:var(--cream);border-radius:4px;padding:1rem;margin-bottom:1.1rem;font-size:.85rem;line-height:1.9;color:var(--text-mid)"></div>
+        <div class="form-row"><div class="form-group"><label data-i="fname">First name</label><input type="text"/></div><div class="form-group"><label data-i="email_lbl">Email</label><input type="email"/></div></div>
+        <div class="form-group"><label data-i="requests_lbl">Special requests</label><input type="text"/></div>
+        <button class="submit-btn" onclick="submitBooking()" data-i="confirm_btn">Confirm →</button>
+        <div class="trust-badges"><span class="trust-badge" data-i="trust1">✓ Free cancellation</span><span class="trust-badge" data-i="trust2">✓ No fees</span><span class="trust-badge" data-i="trust3">✓ Best price</span></div>
       </div>
     </div>
   </div>
 </div>
-
 <script>
-const PEAK=[6,7,8],EARLY_DISC=0.10,PEAK_MULT=1.35;
-let calYear=new Date().getFullYear(),calMonth=new Date().getMonth(),selStart=null,selEnd=null,selecting=false;
-const bookedRanges=[{s:new Date(calYear,calMonth,10),e:new Date(calYear,calMonth,14)},{s:new Date(calYear,calMonth+1,5),e:new Date(calYear,calMonth+1,9)}];
-function isBooked(d){return bookedRanges.some(r=>d.getTime()>=r.s.getTime()&&d.getTime()<r.e.getTime())}
+const T={en:{nav_story:'Story',nav_cycling:'Cycling',nav_rooms:'Rooms',nav_dining:'Dining',nav_find:'Find us',book_btn:'Book a stay',explore_btn:'Explore',hero_eyebrow:'A cycling & gastronomy retreat',hero_welcome:'Cyclists welcome. Non-cyclists equally so.',hero_sub:"Where every day feels like Sunday. A boutique B&B for anyone who loves good food, beautiful surroundings and a slower pace.",welcome_strip:"<strong>You don't need to ride a bike to stay here.</strong> Sempre Domenica is for anyone looking for good food, great company and a place to slow down. The cycling is one way to enjoy the surroundings — not the only one.",about_label:'Our story',about_title:'A place to <em>arrive</em>,<br>and never want to leave',about_p1:"Sempre Domenica was born from a simple idea: combine two of life's greatest pleasures — the freedom of the open road and the joy of a long, unhurried meal.",about_p2:"We've designed every corner of this place around what we wish existed on our own travels.",card1_h:'Cyclist-friendly',card1_p:'Secure storage, workshop, wash station — but no obligation to ride.',card2_h:'Family table',card2_p:'Shared 3-course dinners. One table, all guests, great wine.',card3_h:'Small & personal',card3_p:'Only a handful of rooms. Quiet, unhurried, genuinely warm.',card4_h:'Beautiful surroundings',card4_p:'Walks, routes and views straight from the door.',cycling_label:'For riders',cycling_title:'Everything a cyclist <em>needs</em>',cycling_note:"Not a cyclist? Skip this section — everything else on this page is for you too. The facilities below are a bonus for those who ride, not a requirement for staying with us.",cf1_h:'Secure storage',cf1_p:'Locked, dry, monitored storage for road and gravel bikes.',cf2_h:'Workshop & tools',cf2_p:'Full workshop with stand, Park Tool set, spare tubes and lube.',cf3_h:'Bike wash',cf3_p:'Outdoor wash bay with high-pressure hose and drying rack.',cf4_h:'GPX routes',cf4_p:'Curated local routes — mellow gravel to challenging climbs.',cf5_h:'E-bike charging',cf5_p:'Dedicated charging points throughout the building.',cf6_h:'Ride fuel',cf6_p:'Pre-ride breakfast from 6:30am. Bars and coffee to go.',rooms_label:'Where you sleep',rooms_title:'Our <em>rooms</em>',rooms_sub:"Each room is different. All calm, comfortable and designed for a good night's rest.",badge_popular:'Most popular',badge_views:'Views',badge_spacious:'Spacious',room1_name:'The Gravel Room',room1_desc:'Ground floor with direct garden access. Earthy tones, hardwood and a deep soaking tub. Sleeps 2.',room2_name:'The Loft',room2_desc:'Top floor with exposed beams and countryside views. Light, airy and quietly luxurious. Sleeps 2.',room3_name:'The Garden Suite',room3_desc:'Spacious suite with private garden terrace. Sleeps 2-3.',room_book:'Book room',dining_label:'At the table',dining_title:'One table,<br><em>all guests</em>',dining_p1:'Two or three evenings a week we seat everyone together — one long table, one set menu, one shared evening.',dining_p2:"Dinners are set menu only. We cook what's in season. Vegetarian always available.",dinner1_h:'Dinner evening',dinner1_sub:'3 courses · Set menu · Family style',dinner2_h:"Chef's table",dinner2_sub:'Extended menu · Curated wine pairing',per_person:'per person',typical_evening:'A typical evening',c1_h:'Starter',c1_p:'Seasonal soup or small plate — something warm after the day.',c2_h:'Main',c2_p:'Generous, honest cooking. Local meat, fish or vegetarian.',c3_h:'Dessert',c3_p:'House-made. Usually something with fruit. Always with coffee.',add_dinner:'Add dinner to your stay',gallery_label:'Gallery',testi_label:'Guest stories',testi_title:'What guests are <em>saying</em>',t1:'"The best post-ride dinner I've had in years. We stayed an extra night just because of the food."',t2:'"Came without a bike — loved every moment. The family dinner alone is worth the trip."',t3:'"Came for two nights on a gravel trip, stayed four. The family dinner was the highlight."',loc_label:'Find us',loc_title:'Getting <em>here</em>',loc_p:'Situated in a quiet corner of the region with beautiful surroundings — whether you ride, walk or simply want somewhere beautiful to sit.',footer_tagline:'A B&B for cyclists and food lovers.<br>Every day feels like Sunday.',footer_nav:'Navigate',footer_contact:'Stay in touch',modal_h:'Reserve your stay',modal_sub:'Live availability · Smart pricing',tab1:'1. Dates',tab2:'2. Extras',tab3:'3. Confirm',urgency:'Only <strong>2 rooms</strong> available this weekend',checkin:'Check in',checkout:'Check out',room_lbl:'Room',guests_lbl:'Guests',g1:'1 guest',g2:'2 guests',g3:'3 guests',price_select:'Select dates to see pricing',continue_extras:'Continue →',sugg_h:'Alternative dates',enhance:'Enhance your stay',ex1:'Breakfast',ex2:'Dinner evening',ex3:"Chef's table",ex4:'Bike care',ex5:'GPX routes',ex6:'Welcome wine',free:'Free',early_disc:'Early discount',extras_lbl:'Extras',total_lbl:'Total',review_booking:'Review →',fname:'First name',email_lbl:'Email',requests_lbl:'Special requests',confirm_btn:'Confirm →',trust1:'✓ Free cancellation',trust2:'✓ No fees',trust3:'✓ Best price'},nl:{nav_story:'Verhaal',nav_cycling:'Fietsen',nav_rooms:'Kamers',nav_dining:'Eten',nav_find:'Vind ons',book_btn:'Boek een verblijf',explore_btn:'Ontdek',hero_eyebrow:'Een cycling & gastronomie retreat',hero_welcome:'Fietsers welkom. Niet-fietsers net zo goed.',hero_sub:'Waar elke dag voelt als zondag. Een boutique B&B voor iedereen die houdt van goed eten, mooie omgeving en een rustiger tempo.',welcome_strip:'<strong>Je hoeft niet te fietsen om hier te verblijven.</strong> Sempre Domenica is voor iedereen die op zoek is naar goed eten, gezelschap en een plek om te vertragen.',about_label:'Ons verhaal',about_title:'Een plek om <em>aan te komen</em>,<br>en nooit meer weg te willen',about_p1:'Sempre Domenica is geboren uit een simpel idee: twee van de grootste geneugten combineren — de vrijheid van de weg en het plezier van een lang, ongehaast maal.',about_p2:'We hebben elke hoek ontworpen rondom wat we zelf zochten op onze reizen.',card1_h:'Fietsvriendelijk',card1_p:'Veilige stalling, werkplaats, wasplaats — maar geen verplichting om te rijden.',card2_h:'Familietafel',card2_p:'Gedeelde 3-gangendiner. Één tafel, alle gasten, goede wijn.',card3_h:'Klein & persoonlijk',card3_p:'Slechts een handvol kamers. Rustig, ongehaast, oprecht warm.',card4_h:'Prachtige omgeving',card4_p:'Wandelingen, routes en uitzichten direct vanuit de deur.',cycling_label:'Voor rijders',cycling_title:'Alles wat een fietser <em>nodig heeft</em>',cycling_note:'Geen fietser? Sla dit gedeelte over — alles op deze pagina is ook voor jou. De faciliteiten zijn een bonus voor wie rijdt, geen vereiste.',cf1_h:'Beveiligde stalling',cf1_p:'Afgesloten, droge stalling voor race- en gravel fietsen.',cf2_h:'Werkplaats',cf2_p:'Volledige werkplaats met standaard en Park Tool set.',cf3_h:'Fietsenwasplaats',cf3_p:'Buitenwasplaats met hogedrukreiniger en droogrek.',cf4_h:'GPX routes',cf4_p:'Samengestelde lokale routes van rustig tot uitdagend.',cf5_h:'E-bike laden',cf5_p:'Oplaadpunten voor e-bikes door het hele pand.',cf6_h:'Rijbrandstof',cf6_p:'Pre-ride ontbijt vanaf 6:30u. Bars en koffie om mee te nemen.',rooms_label:'Waar je slaapt',rooms_title:'Onze <em>kamers</em>',rooms_sub:'Elke kamer is anders. Alle rustig, comfortabel en ontworpen voor een goede nacht.',badge_popular:'Meest populair',badge_views:'Uitzicht',badge_spacious:'Ruim',room1_name:'The Gravel Room',room1_desc:'Begane grond met directe tuintoegang. Aardse tinten en een diepe ligbad. Slaapt 2.',room2_name:'The Loft',room2_desc:'Bovenste verdieping met open balken en uitzicht. Licht en luchtig. Slaapt 2.',room3_name:'The Garden Suite',room3_desc:'Ruime suite met privéterras. Slaapt 2-3.',room_book:'Kamer boeken',dining_label:'Aan tafel',dining_title:'Één tafel,<br><em>alle gasten</em>',dining_p1:'Twee of drie avonden per week zitten we samen — één tafel, één menu, één gedeelde avond.',dining_p2:'Alleen setmenu. We koken wat in het seizoen is. Vegetarisch altijd beschikbaar.',dinner1_h:'Dineravond',dinner1_sub:'3 gangen · Setmenu · Familystijl',dinner2_h:"Chef's tafel",dinner2_sub:'Uitgebreid menu · Wijnparing',per_person:'per persoon',typical_evening:'Een typische avond',c1_h:'Voorgerecht',c1_p:'Seizoenssoep of klein gerecht — iets warms na de dag.',c2_h:'Hoofdgerecht',c2_p:'Royaal, eerlijk koken. Lokaal vlees, vis of vegetarisch.',c3_h:'Dessert',c3_p:'Huisgemaakt. Meestal iets met fruit. Altijd met koffie.',add_dinner:'Voeg diner toe aan je verblijf',gallery_label:'Galerij',testi_label:'Gastenverhalen',testi_title:'Wat gasten <em>zeggen</em>',t1:'"Het beste diner na een rit dat ik ooit heb gehad. We bleven een nacht extra vanwege het eten."',t2:'"Gekomen zonder fiets — heb elke minuut genoten. Het familiediner alleen al is de reis waard."',t3:'"Gekomen voor twee nachten, gebleven voor vier. Het diner was het hoogtepunt."',loc_label:'Vind ons',loc_title:'Hoe je <em>hier komt</em>',loc_p:'Gelegen in een rustige hoek met prachtige omgeving — of je nu rijdt, wandelt of gewoon wilt zitten.',footer_tagline:'Een B&B voor fietsers en fijnproevers.<br>Elke dag voelt als zondag.',footer_nav:'Navigeer',footer_contact:'Blijf in contact',modal_h:'Reserveer je verblijf',modal_sub:'Live beschikbaarheid · Slim prijzen',tab1:'1. Data',tab2:'2. Extras',tab3:'3. Bevestig',urgency:'Nog maar <strong>2 kamers</strong> beschikbaar dit weekend',checkin:'Inchecken',checkout:'Uitchecken',room_lbl:'Kamer',guests_lbl:'Gasten',g1:'1 gast',g2:'2 gasten',g3:'3 gasten',price_select:'Selecteer data voor prijs',continue_extras:'Verder →',sugg_h:'Alternatieve data',enhance:'Verbeter je verblijf',ex1:'Ontbijt',ex2:'Dineravond',ex3:"Chef's tafel",ex4:'Fiets kit',ex5:'GPX routes',ex6:'Welkomstfles wijn',free:'Gratis',early_disc:'Vroegboekkorting',extras_lbl:'Extras',total_lbl:'Totaal',review_booking:'Bekijk →',fname:'Voornaam',email_lbl:'E-mail',requests_lbl:'Speciale wensen',confirm_btn:'Bevestigen →',trust1:'✓ Gratis annuleren',trust2:'✓ Geen kosten',trust3:'✓ Beste prijs'},it:{nav_story:'Storia',nav_cycling:'Ciclismo',nav_rooms:'Camere',nav_dining:'Cucina',nav_find:'Trovaci',book_btn:'Prenota',explore_btn:'Scopri',hero_eyebrow:'Un rifugio tra ciclismo e gastronomia',hero_welcome:'Ciclisti benvenuti. Chi non pedala, altrettanto.',hero_sub:'Dove ogni giorno sembra domenica. Un boutique B&B per chi ama il buon cibo, i bei posti e un ritmo più lento.',welcome_strip:"<strong>Non è necessario andare in bici per soggiornare qui.</strong> Sempre Domenica è per chiunque cerchi buon cibo, buona compagnia e un posto dove rallentare.",about_label:'La nostra storia',about_title:'Un posto dove <em>arrivare</em>,<br>e non voler più partire',about_p1:"Sempre Domenica è nata da un'idea semplice: unire due dei più grandi piaceri della vita — la libertà della strada e il piacere di un pranzo lungo e senza fretta.",about_p2:'Abbiamo progettato ogni angolo di questo posto intorno a ciò che avremmo voluto trovare nei nostri viaggi.',card1_h:'Amici dei ciclisti',card1_p:'Deposito sicuro, officina, lavaggio — ma nessun obbligo di pedalare.',card2_h:'Tavola comune',card2_p:'Cene a 3 portate condivise. Un tavolo, tutti gli ospiti.',card3_h:'Piccolo e personale',card3_p:'Solo poche camere. Tranquillo, senza fretta, genuinamente accogliente.',card4_h:'Dintorni meravigliosi',card4_p:'Passeggiate, percorsi e panorami direttamente dalla porta.',cycling_label:'Per i ciclisti',cycling_title:'Tutto ciò che un ciclista <em>desidera</em>',cycling_note:'Non sei un ciclista? Salta questa sezione — tutto il resto è anche per te. Le strutture sono un bonus per chi pedala.',cf1_h:'Deposito sicuro',cf1_p:'Deposito chiuso e sorvegliato per bici da strada e gravel.',cf2_h:'Officina',cf2_p:'Officina completa con cavalletto e set Park Tool.',cf3_h:'Lavaggio bici',cf3_p:'Postazione lavaggio con idropulitrice e rastrelliera.',cf4_h:'Percorsi GPX',cf4_p:'Percorsi locali curati — dalle strade sterrate alle salite.',cf5_h:'Ricarica e-bike',cf5_p:"Punti di ricarica in tutto l'edificio.",cf6_h:'Carburante',cf6_p:'Colazione pre-uscita dalle 6:30. Barrette e caffè da portare.',rooms_label:'Dove dormi',rooms_title:'Le nostre <em>camere</em>',rooms_sub:"Ogni camera è diversa. Tutte tranquille e pensate per una buona notte di riposo.",badge_popular:'Più richiesta',badge_views:'Vista',badge_spacious:'Spaziosa',room1_name:'The Gravel Room',room1_desc:'Piano terra con accesso al giardino. Toni naturali e vasca profonda. Dorme 2.',room2_name:'The Loft',room2_desc:'Ultimo piano con travi a vista e vista campagna. Dorme 2.',room3_name:'The Garden Suite',room3_desc:'Suite spaziosa con terrazza privata. Dorme 2-3.',room_book:'Prenota camera',dining_label:'A tavola',dining_title:'Un tavolo,<br><em>tutti gli ospiti</em>',dining_p1:'Due o tre sere alla settimana sediamo tutti insieme — un lungo tavolo, un menu fisso.',dining_p2:'Solo menu fisso. Cuciniamo ciò che è di stagione. Opzione vegetariana sempre disponibile.',dinner1_h:'Serata cena',dinner1_sub:'3 portate · Menu fisso · Stile familiare',dinner2_h:"Chef's table",dinner2_sub:'Menu esteso · Abbinamento vini',per_person:'a persona',typical_evening:'Una serata tipo',c1_h:'Antipasto',c1_p:'Zuppa di stagione — qualcosa di caldo dopo la giornata.',c2_h:'Secondo',c2_p:'Cucina generosa e onesta. Carne locale, pesce o vegetariano.',c3_h:'Dessert',c3_p:'Fatto in casa. Di solito con frutta. Sempre con caffè.',add_dinner:'Aggiungi la cena al soggiorno',gallery_label:'Galleria',testi_label:'Storie degli ospiti',testi_title:'Cosa dicono i nostri <em>ospiti</em>',t1:'"La miglior cena post-pedalata. Siamo rimasti una notte in più solo per il cibo."',t2:'"Venuta senza bici — ho adorato ogni momento. La cena in famiglia vale il viaggio."',t3:'"Venuto per due notti, rimasto quattro. La cena è stata il momento più bello."',loc_label:'Trovaci',loc_title:'Come <em>raggiungerci</em>',loc_p:'In un angolo tranquillo con bellezze naturali — che tu pedali, cammini o voglia solo stare.',footer_tagline:'Un B&B per ciclisti e amanti del cibo.<br>Ogni giorno sembra domenica.',footer_nav:'Naviga',footer_contact:'Rimani in contatto',modal_h:'Prenota il soggiorno',modal_sub:'Disponibilità in tempo reale',tab1:'1. Date',tab2:'2. Extra',tab3:'3. Conferma',urgency:'Solo <strong>2 camere</strong> disponibili questo weekend',checkin:'Check-in',checkout:'Check-out',room_lbl:'Camera',guests_lbl:'Ospiti',g1:'1 ospite',g2:'2 ospiti',g3:'3 ospiti',price_select:'Seleziona date per il prezzo',continue_extras:'Continua →',sugg_h:'Date alternative',enhance:'Migliora il soggiorno',ex1:'Colazione',ex2:'Serata cena',ex3:"Chef's table",ex4:'Kit bici',ex5:'Percorsi GPX',ex6:'Vino benvenuto',free:'Gratis',early_disc:'Sconto anticipato',extras_lbl:'Extra',total_lbl:'Totale',review_booking:'Rivedi →',fname:'Nome',email_lbl:'Email',requests_lbl:'Richieste speciali',confirm_btn:'Conferma →',trust1:'✓ Cancellazione gratuita',trust2:'✓ Nessuna commissione',trust3:'✓ Miglior prezzo'}};
+let currentLang='en';
+function setLang(l){currentLang=l;const t=T[l];document.querySelectorAll('[data-i]').forEach(el=>{const k=el.getAttribute('data-i');if(t[k]!==undefined){if(el.tagName==='INPUT'&&el.hasAttribute('placeholder'))el.placeholder=t[k];else el.innerHTML=t[k]}});document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===l));document.documentElement.lang=l;updatePrice()}
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>60)});
+function toggleMenu(){const h=document.getElementById('hamburger'),m=document.getElementById('mobileMenu');h.classList.toggle('open');m.classList.toggle('open');document.body.style.overflow=m.classList.contains('open')?'hidden':''}
+const PEAK=[6,7,8],EARLY=0.10,PM=1.35;
+let cY=new Date().getFullYear(),cM=new Date().getMonth(),s1=null,s2=null,sel=false;
+const bk=[{s:new Date(cY,cM,10),e:new Date(cY,cM,14)},{s:new Date(cY,cM+1,5),e:new Date(cY,cM+1,9)}];
+function isBk(d){return bk.some(r=>d>=r.s&&d<r.e)}
 function isPast(d){return d<new Date(new Date().setHours(0,0,0,0))}
-function sameDay(a,b){return a&&b&&a.toDateString()===b.toDateString()}
-function isHoliday(d){return PEAK.includes(d.getMonth())}
-function nightRate(base,d){return Math.round(base*(isHoliday(d)?PEAK_MULT:1))}
-function calcPrice(ci,co,base){
-  if(!ci||!co)return null;
-  const nights=Math.round((co-ci)/864e5);
-  if(nights<1)return null;
-  let sub=0;
-  for(let i=0;i<nights;i++){const d=new Date(ci);d.setDate(d.getDate()+i);sub+=nightRate(base,d)}
-  const weeks=Math.round((ci-new Date())/(864e5*7));
-  const disc=weeks>=2?Math.round(sub*EARLY_DISC):0;
-  const hasPeak=Array.from({length:nights},(_,i)=>{const d=new Date(ci);d.setDate(d.getDate()+i);return d}).some(isHoliday);
-  const hasOff=Array.from({length:nights},(_,i)=>{const d=new Date(ci);d.setDate(d.getDate()+i);return d}).some(d=>!isHoliday(d));
-  return{nights,sub,disc,total:sub-disc,season:hasPeak&&hasOff?'Mixed season':(hasPeak?'Peak season (+35%)':'Off-peak'),weeks};
-}
-function renderCal(){
-  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  document.getElementById('calTitle').textContent=months[calMonth]+' '+calYear;
-  const g=document.getElementById('calGrid');g.innerHTML='';
-  ['Mo','Tu','We','Th','Fr','Sa','Su'].forEach(d=>{const e=document.createElement('div');e.className='cal-dow';e.textContent=d;g.appendChild(e)});
-  const first=new Date(calYear,calMonth,1);
-  let dow=(first.getDay()+6)%7;
-  for(let i=0;i<dow;i++){const e=document.createElement('div');e.className='cal-day empty';g.appendChild(e)}
-  const days=new Date(calYear,calMonth+1,0).getDate();
-  for(let d=1;d<=days;d++){
-    const date=new Date(calYear,calMonth,d);const e=document.createElement('div');e.textContent=d;
-    if(isPast(date)){e.className='cal-day past'}
-    else if(isBooked(date)){e.className='cal-day booked'}
-    else{
-      e.className='cal-day available';
-      if(sameDay(date,selStart))e.classList.add('check-in');
-      else if(sameDay(date,selEnd))e.classList.add('check-out');
-      else if(selStart&&selEnd&&date>selStart&&date<selEnd)e.classList.add('in-range');
-      e.addEventListener('click',()=>handleDay(date));
-    }
-    g.appendChild(e);
-  }
-}
-function handleDay(date){
-  if(!selStart||selEnd){selStart=date;selEnd=null;selecting=true}
-  else if(selecting&&date>selStart){
-    const nights=Math.round((date-selStart)/864e5);let conflict=false;
-    for(let i=0;i<nights;i++){const d=new Date(selStart);d.setDate(d.getDate()+i);if(isBooked(d)){conflict=true;break}}
-    if(conflict)showSugg(selStart,date);
-    else{selEnd=date;selecting=false;showSugg(null)}
-  }else{selStart=date;selEnd=null;selecting=true}
-  updateDisplays();renderCal();updatePrice();
-}
-function prevMonth(){calMonth--;if(calMonth<0){calMonth=11;calYear--}renderCal()}
-function nextMonth(){calMonth++;if(calMonth>11){calMonth=0;calYear++}renderCal()}
-function updateDisplays(){
-  const f=d=>d?d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'';
-  document.getElementById('checkinDisplay').value=selStart?f(selStart):'';
-  document.getElementById('checkoutDisplay').value=selEnd?f(selEnd):'';
-}
-function showSugg(ci,co){
-  const box=document.getElementById('suggestionBox'),opts=document.getElementById('suggestionOptions');
-  if(!ci){box.style.display='none';return}
-  const nights=co?Math.round((co-ci)/864e5):3;
-  const sugg=[];let probe=new Date(ci),tries=0;
-  while(sugg.length<3&&tries<60){probe.setDate(probe.getDate()+1);tries++;
-    const end=new Date(probe);end.setDate(end.getDate()+nights);
-    let ok=true;for(let i=0;i<nights;i++){const d=new Date(probe);d.setDate(d.getDate()+i);if(isBooked(d)||isPast(d)){ok=false;break}}
-    if(ok)sugg.push({s:new Date(probe),e:new Date(end)})}
-  if(!sugg.length){box.style.display='none';return}
-  opts.innerHTML='';
-  sugg.forEach(sg=>{
-    const div=document.createElement('div');div.className='suggestion-opt';
-    const f=d=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
-    div.innerHTML='<span><strong>'+f(sg.s)+' → '+f(sg.e)+'</strong></span><span style="font-size:.75rem;color:var(--text-light)">'+nights+' night'+(nights>1?'s':'')+' — click to select</span>';
-    div.onclick=()=>{selStart=sg.s;selEnd=sg.e;selecting=false;updateDisplays();renderCal();updatePrice();box.style.display='none'};
-    opts.appendChild(div);
-  });
-  box.style.display='block';
-}
-function updatePrice(){
-  const base=parseInt(document.getElementById('roomSelect').value)||135;
-  const roomName=document.getElementById('roomSelect').options[document.getElementById('roomSelect').selectedIndex].text;
-  let extras=0;
-  document.querySelectorAll('.extras-grid input[type=checkbox]').forEach(cb=>{cb.closest('.extra-item').classList.toggle('checked',cb.checked);if(cb.checked)extras+=parseInt(cb.dataset.price)||0});
-  const info=document.getElementById('pricingInfo');
-  if(!selStart||!selEnd){info.textContent='Select check-in and check-out dates to see pricing.';return}
-  const p=calcPrice(selStart,selEnd,base);if(!p)return;
-  let html='<strong>'+p.nights+' night'+(p.nights>1?'s':'')+'</strong> · '+p.season;
-  if(p.disc>0)html+=' · <span style="color:var(--green)">Early booking: −€'+p.disc+' (10% off)</span>';
-  else if(p.weeks<2)html+=' · <em style="color:var(--text-light);font-size:.8rem"> Book 2+ weeks ahead for 10% off</em>';
-  info.innerHTML=html;
-  document.getElementById('seasonLabel2').textContent=p.season;
-  document.getElementById('roomLabel2').textContent=roomName+' × '+p.nights+'n';
-  document.getElementById('roomPriceDisplay2').textContent='€'+p.sub;
-  const dr=document.getElementById('discountRow2');
-  if(p.disc>0){dr.style.display='flex';document.getElementById('discountAmt2').textContent='−€'+p.disc}else dr.style.display='none';
-  document.getElementById('extrasDisplay2').textContent='€'+extras;
-  document.getElementById('totalPrice2').textContent='€'+(p.total+extras);
-  const f=d=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-  document.getElementById('bookingSummary').innerHTML='<strong>Room:</strong> '+roomName+'<br><strong>Check in:</strong> '+f(selStart)+'<br><strong>Check out:</strong> '+f(selEnd)+'<br><strong>Nights:</strong> '+p.nights+'<br><strong>Room total:</strong> €'+p.sub+(p.disc>0?' <span style="color:var(--green)">−€'+p.disc+' early discount</span>':'')+'<br><strong>Extras:</strong> €'+extras+'<br><hr style="border:none;border-top:1px solid #ddd;margin:.5rem 0"/><strong>Total:</strong> €'+(p.total+extras);
-}
-function switchTab(name,btn){
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
-  if(btn)btn.classList.add('active');
-}
-function openModal(room){
-  document.getElementById('modalOverlay').classList.add('open');document.body.style.overflow='hidden';
-  if(room){const sel=document.getElementById('roomSelect');for(let o of sel.options){if(o.text.includes(room)){o.selected=true;break}}}
-  switchTab('dates',document.querySelectorAll('.tab')[0]);renderCal();updatePrice();
-}
+function sd(a,b){return a&&b&&a.toDateString()===b.toDateString()}
+function isH(d){return PEAK.includes(d.getMonth())}
+function nr(base,d){return Math.round(base*(isH(d)?PM:1))}
+function cp(ci,co,base){if(!ci||!co)return null;const n=Math.round((co-ci)/864e5);if(n<1)return null;let sub=0;for(let i=0;i<n;i++){const d=new Date(ci);d.setDate(d.getDate()+i);sub+=nr(base,d)}const w=Math.round((ci-new Date())/(864e5*7));const disc=w>=2?Math.round(sub*EARLY):0;return{nights:n,sub,disc,total:sub-disc,season:Array.from({length:n},(_,i)=>{const d=new Date(ci);d.setDate(d.getDate()+i);return d}).some(isH)?'Peak (+35%)':'Off-peak',weeks:w}}
+function renderCal(){const mn=['January','February','March','April','May','June','July','August','September','October','November','December'];const mnl=['Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December'];const mit=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];const ma=currentLang==='nl'?mnl:currentLang==='it'?mit:mn;document.getElementById('calTitle').textContent=ma[cM]+' '+cY;const g=document.getElementById('calGrid');g.innerHTML='';const dw=currentLang==='nl'?['Ma','Di','Wo','Do','Vr','Za','Zo']:currentLang==='it'?['Lu','Ma','Me','Gi','Ve','Sa','Do']:['Mo','Tu','We','Th','Fr','Sa','Su'];dw.forEach(d=>{const e=document.createElement('div');e.className='cal-dow';e.textContent=d;g.appendChild(e)});const f=new Date(cY,cM,1);let dow=(f.getDay()+6)%7;for(let i=0;i<dow;i++){const e=document.createElement('div');e.className='cal-day empty';g.appendChild(e)}const days=new Date(cY,cM+1,0).getDate();for(let d=1;d<=days;d++){const date=new Date(cY,cM,d);const e=document.createElement('div');e.textContent=d;if(isPast(date))e.className='cal-day past';else if(isBk(date))e.className='cal-day booked';else{e.className='cal-day available';if(sd(date,s1))e.classList.add('check-in');else if(sd(date,s2))e.classList.add('check-out');else if(s1&&s2&&date>s1&&date<s2)e.classList.add('in-range');e.addEventListener('click',()=>hd(date))}g.appendChild(e)}}
+function hd(date){if(!s1||s2){s1=date;s2=null;sel=true}else if(sel&&date>s1){const n=Math.round((date-s1)/864e5);let cf=false;for(let i=0;i<n;i++){const d=new Date(s1);d.setDate(d.getDate()+i);if(isBk(d)){cf=true;break}}if(cf)ss(s1,date);else{s2=date;sel=false;ss(null)}}else{s1=date;s2=null;sel=true}ud();renderCal();updatePrice()}
+function prevMonth(){cM--;if(cM<0){cM=11;cY--}renderCal()}
+function nextMonth(){cM++;if(cM>11){cM=0;cY++}renderCal()}
+function ud(){const f=d=>d?d.toLocaleDateString(currentLang==='nl'?'nl-NL':currentLang==='it'?'it-IT':'en-GB',{day:'numeric',month:'short',year:'numeric'}):'';document.getElementById('checkinDisplay').value=s1?f(s1):'';document.getElementById('checkoutDisplay').value=s2?f(s2):''}
+function ss(ci,co){const box=document.getElementById('suggestionBox'),opts=document.getElementById('suggestionOptions');if(!ci){box.style.display='none';return}const n=co?Math.round((co-ci)/864e5):3;const sg=[];let p=new Date(ci),tr=0;while(sg.length<3&&tr<60){p.setDate(p.getDate()+1);tr++;const end=new Date(p);end.setDate(end.getDate()+n);let ok=true;for(let i=0;i<n;i++){const d=new Date(p);d.setDate(d.getDate()+i);if(isBk(d)||isPast(d)){ok=false;break}}if(ok)sg.push({s:new Date(p),e:new Date(end)})}if(!sg.length){box.style.display='none';return}opts.innerHTML='';sg.forEach(x=>{const div=document.createElement('div');div.className='suggestion-opt';const fmt=d=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});div.innerHTML='<span><strong>'+fmt(x.s)+' → '+fmt(x.e)+'</strong></span><span style="font-size:.74rem;color:var(--text-light)">'+n+'n</span>';div.onclick=()=>{s1=x.s;s2=x.e;sel=false;ud();renderCal();updatePrice();box.style.display='none'};opts.appendChild(div)});box.style.display='block'}
+function updatePrice(){const base=parseInt(document.getElementById('roomSelect').value)||135;const rn=document.getElementById('roomSelect').options[document.getElementById('roomSelect').selectedIndex].text;let ex=0;document.querySelectorAll('.extras-grid input[type=checkbox]').forEach(cb=>{cb.closest('.extra-item').classList.toggle('checked',cb.checked);if(cb.checked)ex+=parseInt(cb.dataset.price)||0});const t=T[currentLang];const info=document.getElementById('pricingInfo');if(!s1||!s2){info.textContent=t.price_select;return}const p=cp(s1,s2,base);if(!p)return;let h='<strong>'+p.nights+'n</strong> · '+p.season;if(p.disc>0)h+=' · <span style="color:var(--green)">'+t.early_disc+': -€'+p.disc+'</span>';info.innerHTML=h;document.getElementById('seasonLabel2').textContent=p.season;document.getElementById('roomLabel2').textContent=rn+' x'+p.nights+'n';document.getElementById('roomPriceDisplay2').textContent='€'+p.sub;const dr=document.getElementById('discountRow2');if(p.disc>0){dr.style.display='flex';document.getElementById('discountAmt2').textContent='-€'+p.disc}else dr.style.display='none';document.getElementById('extrasDisplay2').textContent='€'+ex;document.getElementById('totalPrice2').textContent='€'+(p.total+ex);const fmt=d=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});document.getElementById('bookingSummary').innerHTML='<strong>'+t.room_lbl+':</strong> '+rn+'<br><strong>'+t.checkin+':</strong> '+fmt(s1)+'<br><strong>'+t.checkout+':</strong> '+fmt(s2)+'<br><strong>Nights:</strong> '+p.nights+'<br><strong>'+t.total_lbl+':</strong> €'+(p.total+ex)}
+function switchTab(name,btn){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('tab-'+name).classList.add('active');if(btn)btn.classList.add('active')}
+function openModal(room){document.getElementById('modalOverlay').classList.add('open');document.body.style.overflow='hidden';if(room){const sel=document.getElementById('roomSelect');for(let o of sel.options){if(o.text.includes(room)){o.selected=true;break}}}switchTab('dates',document.querySelectorAll('.tab')[0]);renderCal();updatePrice()}
 function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow=''}
 function handleOverlayClick(e){if(e.target===e.currentTarget)closeModal()}
-function submitBooking(){alert('Booking request sent! We confirm within a few hours. Ciao!');closeModal()}
-window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>60)});
+function submitBooking(){alert(currentLang==='nl'?'Boekingsverzoek verzonden! We bevestigen binnen een paar uur. Ciao!':currentLang==='it'?'Richiesta inviata! Ciao!':'Booking request sent! Ciao!');closeModal()}
 renderCal();
 </script>
 </body>
