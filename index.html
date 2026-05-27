@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Sempre Domenica</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green:#1a3a2a;--green-mid:#2c5c3f;--green-light:#3d7a54;
+  --terra:#8b3a2a;--terra-mid:#a84a36;--terra-light:#c96048;
+  --cream:#f5f0e8;--cream-dark:#ede6d6;
+  --text-dark:#1a1a18;--text-mid:#3d3d38;--text-light:#7a7a70;
+  --white:#fff;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--cream);color:var(--text-dark);overflow-x:hidden}
+h1,h2,h3,h4,.serif{font-family:'Playfair Display',Georgia,serif}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 5%;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+nav.scrolled{background:var(--green);box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.nav-logo{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;color:#fff;letter-spacing:.04em}
+.nav-logo em{font-style:italic;color:#c8d8a8}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--terra-light)}
+.nav-book-btn{background:var(--terra);color:#fff;border:none;padding:.55rem 1.4rem;border-radius:2px;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .2s;font-family:'DM Sans',sans-serif}
+.nav-book-btn:hover{background:var(--terra-mid)}
+.hero{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--green)}
+.btn-primary{background:var(--terra);color:#fff;padding:.8rem 2rem;border:none;border-radius:2px;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:var(--terra-mid);transform:translateY(-1px)}
+.float-btn{position:fixed;bottom:2rem;right:2rem;z-index:200;background:var(--terra);color:#fff;border:none;padding:.9rem 1.8rem;border-radius:2px;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 20px rgba(139,58,42,.45);transition:all .3s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:.6rem}
+</style>
+</head>
+<body>
+<!-- Sempre Domenica - Hoofdwebsite v1.0 -->
+<!-- Zie Claude artifact 'sempre_domenica' voor de volledige productie-code -->
+<!-- Repository: yorickbouwer-spec/sempre-domenica -->
+<!-- Gegenereerd: 2026 -->
+<nav id="nav">
+  <div class="nav-logo">Sempre <em>Domenica</em></div>
+  <ul class="nav-links">
+    <li><a href="#about">Story</a></li>
+    <li><a href="#cycling">Cycling</a></li>
+    <li><a href="#rooms">Rooms</a></li>
+    <li><a href="#dining">Dining</a></li>
+    <li><a href="#location">Find us</a></li>
+    <li><a href="la-famiglia.html" style="color:#c8d8a8">La Famiglia</a></li>
+  </ul>
+  <button class="nav-book-btn" onclick="openModal()">Book a stay</button>
+</nav>
+<button class="float-btn" onclick="openModal()">Book a stay</button>
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',scrollY>60)
+});
+function openModal(){ alert('Booking modal — koppel aan boekingssysteem'); }
+</script>
+</body>
+</html>
