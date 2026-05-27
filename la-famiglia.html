@@ -7,32 +7,288 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --green:#1a3a2a;--green-mid:#2c5c3f;
-  --terra:#8b3a2a;--terra-mid:#a84a36;
-  --cream:#f5f0e8;--cream-dark:#ede6d6;
-  --text-dark:#1a1a18;--text-mid:#3d3d38;--text-light:#7a7a70;
-}
+:root{--green:#1a3a2a;--green-mid:#2c5c3f;--terra:#8b3a2a;--terra-mid:#a84a36;--cream:#f5f0e8;--cream-dark:#ede6d6;--gold:#b8860b;--gold-bg:#fdf6dc;--gold-border:#e8c84a;--silver-bg:#f0f2f4;--silver-border:#b0b8c4;--bronze-bg:#faf0e6;--bronze-border:#c8a882;--text-dark:#1a1a18;--text-mid:#3d3d38;--text-light:#7a7a70;--white:#fff}
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',system-ui,sans-serif;background:var(--cream);color:var(--text-dark)}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--cream);color:var(--text-dark);overflow-x:hidden}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--green);padding:1rem 5%;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:'Playfair Display',Georgia,serif;font-size:1.3rem;color:#fff}
+.nav-logo{font-family:'Playfair Display',Georgia,serif;font-size:1.3rem;color:#fff;letter-spacing:.04em;text-decoration:none}
 .nav-logo em{font-style:italic;color:#c8d8a8}
-.nav-back{color:rgba(255,255,255,.6);font-size:.8rem;text-decoration:none;text-transform:uppercase;letter-spacing:.08em}
+.nav-back{color:rgba(255,255,255,.6);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:color .2s}
 .nav-back:hover{color:#fff}
+.hero{min-height:80vh;background:var(--green);display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 5% 5rem;position:relative;overflow:hidden}
+.hero-pattern{position:absolute;inset:0;opacity:.05;background-image:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);background-size:20px 20px}
+.hero-content{position:relative;z-index:2;max-width:700px}
+.hero-eyebrow{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:#c8d8a8;margin-bottom:1rem}
+.hero h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.8rem,7vw,5.5rem);color:#fff;line-height:1.08;margin-bottom:.8rem}
+.hero h1 em{font-style:italic;color:#c8d8a8}
+.hero-sub{font-size:1.05rem;color:rgba(255,255,255,.65);line-height:1.8;font-weight:300;max-width:520px;margin:0 auto 2.5rem}
+.hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--terra);color:#fff;padding:.85rem 2rem;border:none;border-radius:2px;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:var(--terra-mid);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.8);padding:.85rem 2rem;border:1.5px solid rgba(255,255,255,.3);border-radius:2px;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-ghost:hover{border-color:#fff;color:#fff}
+section{padding:5rem 5%}
+.section-label{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--terra);margin-bottom:.8rem}
+.section-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--green);line-height:1.15;margin-bottom:1.2rem}
+.section-title em{font-style:italic;color:var(--terra)}
+.promise{background:var(--cream);text-align:center}
+.promise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:900px;margin:3rem auto 0}
+.promise-item{display:flex;flex-direction:column;align-items:center;gap:.8rem}
+.promise-icon{font-size:2rem}
+.promise-item h3{font-family:'Playfair Display',Georgia,serif;font-size:1.05rem;color:var(--green)}
+.promise-item p{font-size:.87rem;color:var(--text-light);line-height:1.7;font-weight:300}
+.tiers{background:var(--cream-dark)}
+.tiers-header{text-align:center;margin-bottom:3rem}
+.tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1000px;margin:0 auto}
+.tier-card{background:var(--white);border-radius:4px;overflow:hidden;transition:transform .3s}
+.tier-card:hover{transform:translateY(-3px)}
+.tier-card.featured{box-shadow:0 0 0 2px var(--green-mid)}
+.tier-ribbon{height:5px}
+.rb-bronze{background:linear-gradient(90deg,#c8a882,#e8c8a0)}
+.rb-silver{background:linear-gradient(90deg,#9ca3af,#d1d5db)}
+.rb-gold{background:linear-gradient(90deg,#d4a017,#f5d060)}
+.tier-head{padding:1.6rem 1.6rem 1.2rem;border-bottom:1px solid #f0ebe0}
+.tier-badge{display:inline-block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .8rem;border-radius:2px;margin-bottom:.7rem;font-weight:500}
+.tb-bronze{background:var(--bronze-bg);color:#7a4a1a;border:1px solid var(--bronze-border)}
+.tb-silver{background:var(--silver-bg);color:#374151;border:1px solid var(--silver-border)}
+.tb-gold{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-border)}
+.tier-name{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;color:var(--green);margin-bottom:.2rem}
+.tier-italian{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.95rem;color:var(--text-light);margin-bottom:.6rem}
+.tier-trigger{font-size:.78rem;color:var(--text-light);background:var(--cream);padding:.4rem .7rem;border-radius:2px;display:inline-block}
+.tier-body{padding:1.4rem 1.6rem 1.8rem}
+.perk{display:flex;gap:.8rem;align-items:flex-start;padding:.55rem 0;border-bottom:1px solid #f5f0e8}
+.perk:last-child{border-bottom:none}
+.perk-check{width:18px;height:18px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:.65rem;color:#fff}
+.perk-check.muted{background:#e8e4d8;color:#bbb}
+.perk-text{font-size:.85rem;color:var(--text-mid);line-height:1.45}
+.perk-text strong{display:block;color:var(--text-dark);font-weight:500;font-size:.84rem}
+.tier-cta{margin:0 1.6rem 1.6rem}
+.tier-cta button{width:100%;padding:.75rem;border-radius:2px;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.cta-ghost{background:transparent;border:1.5px solid var(--green);color:var(--green)}
+.cta-ghost:hover{background:var(--green);color:#fff}
+.cta-solid{background:var(--green);border:none;color:#fff}
+.cta-solid:hover{background:var(--green-mid)}
+.cta-terra{background:var(--terra);border:none;color:#fff}
+.cta-terra:hover{background:var(--terra-mid)}
+.journey{background:var(--green);padding:5rem 5%;color:#fff}
+.journey .section-title{color:#fff}
+.journey .section-title em{color:#c8d8a8}
+.journey-track{display:flex;align-items:flex-start;max-width:800px;margin-top:3rem}
+.jnode{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.7rem}
+.jnode-circle{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;border:2px solid}
+.jnc-b{background:rgba(200,168,130,.15);border-color:#c8a882}
+.jnc-s{background:rgba(156,163,175,.15);border-color:#9ca3af}
+.jnc-g{background:rgba(212,160,23,.15);border-color:#d4a017}
+.jnode-name{font-family:'Playfair Display',Georgia,serif;font-size:1rem;color:#fff}
+.jnode-italian{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.82rem;color:rgba(255,255,255,.5)}
+.jnode-trigger{font-size:.75rem;color:rgba(255,255,255,.45)}
+.jline{flex:.6;height:1px;background:rgba(255,255,255,.2);margin-top:28px}
+.acties{background:var(--cream)}
+.acties-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
+.actie-card{background:var(--white);border-radius:4px;padding:2rem 1.6rem;border-top:3px solid var(--terra)}
+.actie-icon{font-size:2rem;margin-bottom:1rem}
+.actie-card h3{font-family:'Playfair Display',Georgia,serif;font-size:1.15rem;color:var(--green);margin-bottom:.5rem}
+.actie-card p{font-size:.87rem;color:var(--text-light);line-height:1.7;font-weight:300;margin-bottom:1rem}
+.actie-who{display:flex;gap:.4rem;flex-wrap:wrap}
+.aw-badge{font-size:.68rem;padding:.25rem .6rem;border-radius:2px;letter-spacing:.05em;text-transform:uppercase}
+.aw-b{background:var(--bronze-bg);color:#7a4a1a;border:1px solid var(--bronze-border)}
+.aw-s{background:var(--silver-bg);color:#374151;border:1px solid var(--silver-border)}
+.aw-g{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-border)}
+.signup{background:var(--green);padding:5rem 5%}
+.signup-inner{max-width:640px;margin:0 auto;text-align:center}
+.signup .section-label{color:#c8d8a8}
+.signup .section-title{color:#fff}
+.signup .section-title em{color:#c8d8a8}
+.signup-sub{font-size:.97rem;color:rgba(255,255,255,.6);font-weight:300;line-height:1.8;margin:1rem 0 2.5rem}
+.signup-form{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:2rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-group{display:flex;flex-direction:column;gap:.4rem;text-align:left}
+.form-group label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.form-group input,.form-group select{padding:.75rem .9rem;border:1px solid rgba(255,255,255,.2);border-radius:2px;font-size:.9rem;color:#fff;background:rgba(255,255,255,.08);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.form-group input::placeholder{color:rgba(255,255,255,.3)}
+.form-group input:focus,.form-group select:focus{border-color:rgba(255,255,255,.5)}
+.form-group select option{background:var(--green);color:#fff}
+.form-check{display:flex;gap:.8rem;align-items:flex-start;text-align:left;margin-bottom:1.2rem}
+.form-check input[type=checkbox]{accent-color:#c8d8a8;width:15px;height:15px;flex-shrink:0;margin-top:2px;cursor:pointer}
+.form-check label{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.5;cursor:pointer}
+.form-check label a{color:#c8d8a8}
+.signup-submit{width:100%;background:var(--terra);color:#fff;border:none;padding:1rem;border-radius:2px;font-size:.88rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s}
+.signup-submit:hover{background:var(--terra-mid)}
+.signup-trust{display:flex;gap:1.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap}
+.signup-trust span{font-size:.75rem;color:rgba(255,255,255,.4)}
+.faq{background:var(--cream-dark);padding:5rem 5%}
+.faq-inner{max-width:680px;margin:0 auto}
+.faq-header{text-align:center;margin-bottom:2.5rem}
+.faq-item{border-bottom:1px solid #ddd;overflow:hidden}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0;cursor:pointer;font-size:.95rem;font-weight:500;color:var(--text-dark);gap:1rem}
+.faq-q .arrow{font-size:1.1rem;color:var(--text-light);transition:transform .25s}
+.faq-item.open .arrow{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a p{font-size:.88rem;color:var(--text-mid);line-height:1.75;font-weight:300;padding-bottom:1.1rem}
+footer{background:#1a1a18;color:rgba(255,255,255,.4);padding:2.5rem 5%;display:flex;justify-content:space-between;align-items:center;font-size:.82rem;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:'Playfair Display',Georgia,serif;color:#fff;font-size:1.1rem}
+.footer-logo em{font-style:italic;color:#c8d8a8}
+footer a{color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s;margin-left:1.5rem}
+footer a:hover{color:rgba(255,255,255,.8)}
+.success-msg{background:#eef5eb;border:1px solid #a8d0a0;border-radius:4px;padding:1.2rem 1.4rem;text-align:center;display:none}
+.success-msg h3{font-family:'Playfair Display',Georgia,serif;color:var(--green);margin-bottom:.3rem}
+.success-msg p{font-size:.87rem;color:var(--text-mid)}
 </style>
 </head>
 <body>
-<!-- Sempre Domenica - La Famiglia ledenpagina v1.0 -->
-<!-- Zie Claude artifact 'sempre_domenica_leden' voor de volledige productie-code -->
-<!-- Repository: yorickbouwer-spec/sempre-domenica -->
-<!-- Gegenereerd: 2026 -->
 <nav>
   <a class="nav-logo" href="index.html">Sempre <em>Domenica</em></a>
-  <a class="nav-back" href="index.html">← Terug naar de website</a>
+  <a class="nav-back" href="index.html">&#8592; Terug naar de website</a>
 </nav>
+
+<section class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Het loyaliteitsprogramma</p>
+    <h1>La <em>Famiglia</em></h1>
+    <p class="hero-sub">Voor de mensen die terugkomen. Niet voor de punten, maar voor de tafel, de routes, en het gevoel dat je thuis bent.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary" onclick="document.getElementById('aanmelden').scrollIntoView({behavior:'smooth'})">Word lid — het is gratis</button>
+      <button class="btn-ghost" onclick="document.getElementById('tiers').scrollIntoView({behavior:'smooth'})">Bekijk de voordelen</button>
+    </div>
+  </div>
+</section>
+
+<section class="promise">
+  <p class="section-label">Waarom lid worden</p>
+  <h2 class="section-title">Geen punten. Geen plastic kaart.<br><em>Wel echte voordelen.</em></h2>
+  <div class="promise-grid">
+    <div class="promise-item"><div class="promise-icon">&#128690;</div><h3>Gebouwd voor rijders</h3><p>Vroeg toegang tot nieuwe routes, GPX-packs en exclusieve ritten voor leden.</p></div>
+    <div class="promise-item"><div class="promise-icon">&#127863;</div><h3>Aan tafel met de familia</h3><p>Gegarandeerde plekken aan de familietafel, exclusieve dineravonden en verrassingen.</p></div>
+    <div class="promise-item"><div class="promise-icon">&#11088;</div><h3>Hoe vaker je komt, hoe meer je krijgt</h3><p>Elke terugkeer brengt je dichter bij Il Domenicano — de binnenste kring.</p></div>
+  </div>
+</section>
+
+<section class="tiers" id="tiers">
+  <div class="tiers-header">
+    <p class="section-label">De tiers</p>
+    <h2 class="section-title">Van gast naar <em>famiglia</em></h2>
+  </div>
+  <div class="tiers-grid">
+    <div class="tier-card">
+      <div class="tier-ribbon rb-bronze"></div>
+      <div class="tier-head"><span class="tier-badge tb-bronze">Gast</span><div class="tier-name">Il Viandante</div><div class="tier-italian">De reiziger</div><div class="tier-trigger">Vanaf je eerste boeking</div></div>
+      <div class="tier-body">
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>Welkomstmail + GPX routes</strong>Beste lokale routes direct in je inbox</div></div>
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>10% vroegboekkorting</strong>Bij boeken 2+ weken van tevoren</div></div>
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>Seizoensnieuws</strong>Menu's, routes en nieuws uit de keuken</div></div>
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>Deelname prijsvragen</strong>Meedoen aan alle seizoensacties</div></div>
+        <div class="perk"><div class="perk-check muted">&#10003;</div><div class="perk-text" style="color:#bbb"><strong style="color:#ccc">Exclusieve dineravond</strong>Beschikbaar vanaf Stamgast</div></div>
+        <div class="perk"><div class="perk-check muted">&#10003;</div><div class="perk-text" style="color:#bbb"><strong style="color:#ccc">Gratis overnachting verloting</strong>Beschikbaar vanaf Insider</div></div>
+      </div>
+      <div class="tier-cta"><button class="cta-ghost" onclick="document.getElementById('aanmelden').scrollIntoView({behavior:'smooth'})">Word Il Viandante</button></div>
+    </div>
+    <div class="tier-card featured">
+      <div class="tier-ribbon rb-silver"></div>
+      <div class="tier-head"><span class="tier-badge tb-silver">Stamgast</span><div class="tier-name">Il Compagno</div><div class="tier-italian">De vaste tafelgenoot</div><div class="tier-trigger">Vanaf 2e verblijf of 5+ nachten totaal</div></div>
+      <div class="tier-body">
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>Alles uit Il Viandante</strong></div></div>
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>15% vroegboekkorting</strong>Hogere korting dan basistier</div></div>
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>Prioriteit aan de familietafel</strong>Gegarandeerde plek op dineravonden</div></div>
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>Welkomstfles wijn</strong>Lokale fles op de kamer bij aankomst</div></div>
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>Insider nieuwsbrief</strong>Seizoensmenu preview en nieuwe routes eerst</div></div>
+        <div class="perk"><div class="perk-check muted">&#10003;</div><div class="perk-text" style="color:#bbb"><strong style="color:#ccc">Gratis overnachting verloting</strong>Beschikbaar vanaf Insider</div></div>
+      </div>
+      <div class="tier-cta"><button class="cta-solid" onclick="document.getElementById('aanmelden').scrollIntoView({behavior:'smooth'})">Kom terug en klim op</button></div>
+    </div>
+    <div class="tier-card">
+      <div class="tier-ribbon rb-gold"></div>
+      <div class="tier-head"><span class="tier-badge tb-gold">Insider</span><div class="tier-name">Il Domenicano</div><div class="tier-italian">Van de famiglia</div><div class="tier-trigger">Vanaf 4e verblijf of 12+ nachten totaal</div></div>
+      <div class="tier-body">
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>Alles uit Il Compagno</strong></div></div>
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>20% vroegboekkorting</strong>De beste directe prijs</div></div>
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>Exclusieve ledendineavond</strong>1-2x per jaar, alleen voor Domenicani</div></div>
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>Jaarlijkse verloting</strong>Win een gratis verblijf — elke nacht = extra lot</div></div>
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>Verjaardagsverrassing</strong>Upgrade of cadeau bij verblijf rond je verjaardag</div></div>
+        <div class="perk"><div class="perk-check">&#10003;</div><div class="perk-text"><strong>Direct contact met de eigenaar</strong>Persoonlijk berichtenkanaal</div></div>
+      </div>
+      <div class="tier-cta"><button class="cta-terra" onclick="document.getElementById('aanmelden').scrollIntoView({behavior:'smooth'})">Begin je reis</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="journey">
+  <p class="section-label" style="color:#c8d8a8">Hoe het werkt</p>
+  <h2 class="section-title">Elke terugkeer brengt je<br><em>verder in de famiglia</em></h2>
+  <div class="journey-track">
+    <div class="jnode"><div class="jnode-circle jnc-b">&#128690;</div><div class="jnode-name">Il Viandante</div><div class="jnode-italian">De reiziger</div><div class="jnode-trigger">Verblijf 1</div></div>
+    <div class="jline"></div>
+    <div class="jnode"><div class="jnode-circle jnc-s">&#127863;</div><div class="jnode-name">Il Compagno</div><div class="jnode-italian">De tafelgenoot</div><div class="jnode-trigger">Verblijf 2 of 5 nachten</div></div>
+    <div class="jline"></div>
+    <div class="jnode"><div class="jnode-circle jnc-g">&#11088;</div><div class="jnode-name">Il Domenicano</div><div class="jnode-italian">Van de famiglia</div><div class="jnode-trigger">Verblijf 4 of 12 nachten</div></div>
+  </div>
+</section>
+
+<section class="acties">
+  <p class="section-label">Acties en prijsvragen</p>
+  <h2 class="section-title">Meer dan korting —<br><em>echte beleving</em></h2>
+  <div class="acties-grid">
+    <div class="actie-card"><div class="actie-icon">&#128197;</div><h3>Vroegboekkorting volgend seizoen</h3><p>Leden krijgen als eerste toegang tot het nieuwe seizoensschema met hogere korting naarmate je tier stijgt.</p><div class="actie-who"><span class="aw-badge aw-b">Gast 10%</span><span class="aw-badge aw-s">Stamgast 15%</span><span class="aw-badge aw-g">Insider 20%</span></div></div>
+    <div class="actie-card"><div class="actie-icon">&#128557;</div><h3>Exclusieve ledendineavond</h3><p>Een of twee keer per jaar een privétafel voor Il Domenicano. Uitgebreid menu, wijnparing, de chef schuift aan.</p><div class="actie-who"><span class="aw-badge aw-g">Alleen Insider</span></div></div>
+    <div class="actie-card"><div class="actie-icon">&#127873;</div><h3>Jaarlijkse verblijfsverloting</h3><p>Elk jaar verloten we een gratis verblijf van 2 nachten. Elke nacht die je er ooit hebt geslapen telt als extra lot.</p><div class="actie-who"><span class="aw-badge aw-g">Alleen Insider</span></div></div>
+  </div>
+</section>
+
+<section class="signup" id="aanmelden">
+  <div class="signup-inner">
+    <p class="section-label">Aanmelden</p>
+    <h2 class="section-title">Word deel van<br><em>La Famiglia</em></h2>
+    <p class="signup-sub">Maak een gratis account aan. Na je eerste boeking ben je automatisch Il Viandante. Elke terugkeer brengt je verder.</p>
+    <div class="signup-form" id="signupForm">
+      <div class="form-row">
+        <div class="form-group"><label>Voornaam</label><input type="text" placeholder="Lorenzo"/></div>
+        <div class="form-group"><label>Achternaam</label><input type="text" placeholder="Rossi"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>E-mailadres</label><input type="email" placeholder="jij@example.com"/></div>
+        <div class="form-group"><label>Je favoriete fietstype</label>
+          <select><option value="" disabled selected>Kies een type</option><option>Gravelfiets</option><option>Racefiets</option><option>E-bike</option><option>Meerdere types</option></select>
+        </div>
+      </div>
+      <div class="form-check"><input type="checkbox" id="check-mail"/><label for="check-mail">Ja, ik wil seizoensnieuws ontvangen — menu's, routes en ledenacties. Ik kan me altijd afmelden.</label></div>
+      <div class="form-check"><input type="checkbox" id="check-privacy"/><label for="check-privacy">Ik ga akkoord met het <a href="#">privacybeleid</a>. Mijn gegevens worden alleen gebruikt voor Sempre Domenica.</label></div>
+      <button class="signup-submit" onclick="handleSignup()">Account aanmaken — gratis &#8594;</button>
+      <div class="signup-trust"><span>&#10003; Gratis lidmaatschap</span><span>&#10003; AVG-compliant</span><span>&#10003; Altijd opzegbaar</span></div>
+    </div>
+    <div class="success-msg" id="successMsg"><h3>Benvenuto nella famiglia! &#127807;</h3><p>Je account is aangemaakt. Controleer je inbox voor een bevestiging.</p></div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="faq-inner">
+    <div class="faq-header"><p class="section-label">Vragen</p><h2 class="section-title">Veelgestelde <em>vragen</em></h2></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Kost het lidmaatschap iets?<span class="arrow">&#8595;</span></div><div class="faq-a"><p>Nee, lidmaatschap van La Famiglia is volledig gratis. Je maakt eenmalig een account aan en profiteert direct van de voordelen van Il Viandante.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Hoe word ik automatisch Stamgast of Insider?<span class="arrow">&#8595;</span></div><div class="faq-a"><p>Na elke boeking controleren we automatisch of je in aanmerking komt voor een hogere tier. Je ontvangt een persoonlijk bericht zodra je wordt bijgewerkt.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Tellen oude boekingen ook mee?<span class="arrow">&#8595;</span></div><div class="faq-a"><p>Ja. Als je al eerder bij ons hebt geslapen stuur ons dan een berichtje met je naam en data. We voegen je verblijven toe aan je profiel.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Hoe werkt de vroegboekkorting?<span class="arrow">&#8595;</span></div><div class="faq-a"><p>De korting wordt automatisch toegepast zodra je ingelogd boekt op de website, minimaal 2 weken voor je verblijf. De hoogte hangt af van je tier.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Kan ik mijn account verwijderen?<span class="arrow">&#8595;</span></div><div class="faq-a"><p>Ja, je kunt je account op elk moment verwijderen via je profielpagina of door ons te mailen. Alle gegevens worden permanent verwijderd conform de AVG.</p></div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Sempre <em>Domenica</em> — La Famiglia</div>
+  <div><a href="#">Privacy</a><a href="index.html">Terug naar de website</a></div>
+  <div>&#169; 2026 Sempre Domenica</div>
+</footer>
+
 <script>
-// Volledige ledenpagina code — zie Claude artifact 'sempre_domenica_leden'
+function handleSignup(){
+  if(!document.getElementById('check-privacy').checked){alert('Vink het privacybeleid aan om verder te gaan.');return}
+  document.getElementById('signupForm').style.display='none';
+  document.getElementById('successMsg').style.display='block';
+}
+function toggleFaq(el){
+  const item=el.closest('.faq-item');
+  const wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!wasOpen)item.classList.add('open');
+}
 </script>
 </body>
 </html>
